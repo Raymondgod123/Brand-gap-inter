@@ -33,6 +33,22 @@ python -m brand_gap_inference.eval_runner --fixtures-dir eval/fixtures/phase1 --
 
 If the shell does not expose Python directly, use the bundled runtime provided by Codex desktop.
 
+## MVP Run (One Amazon URL)
+
+This is the narrow MVP flow: ingest one Amazon product page, store a raw snapshot, normalize the listing, assign taxonomy,
+and generate one evidence-backed gap hypothesis report with explicit caveats.
+
+```powershell
+$env:PYTHONPATH = "src"
+python -m brand_gap_inference.mvp_run --url "https://www.amazon.com/dp/B098H7XWQ6"
+```
+
+Outputs are written under `artifacts/mvp-<snapshot_id>/`:
+
+- `mvp_report.md` (human-readable demo output)
+- `opportunities.json` (machine-readable hypothesis output)
+- plus normalization and taxonomy artifacts for traceability
+
 ## Ingestion Foundation
 
 Phase 2 starts with a source-agnostic ingestion layer:
