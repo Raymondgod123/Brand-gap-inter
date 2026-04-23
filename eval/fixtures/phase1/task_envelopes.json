@@ -1,0 +1,28 @@
+[
+  {
+    "task_id": "task-001",
+    "run_id": "run-2026-04-22T09-00-00Z",
+    "task_type": "contract_validation",
+    "repo_sha": "bootstrap-sha",
+    "owner_agent": "validator",
+    "status": "validated",
+    "dependencies": [],
+    "input_artifact_uris": ["s3://brand-gap/raw/2026-04-22/"],
+    "acceptance_checks": ["schemas-pass", "fixtures-pass"],
+    "retry_budget": 1,
+    "timeout_seconds": 300
+  },
+  {
+    "task_id": "task-002",
+    "run_id": "run-2026-04-22T09-00-00Z",
+    "task_type": "opportunity_eval",
+    "repo_sha": "bootstrap-sha",
+    "owner_agent": "validator",
+    "status": "validated",
+    "dependencies": ["task-001"],
+    "input_artifact_uris": ["s3://brand-gap/derived/phase1/opportunities.json"],
+    "acceptance_checks": ["evidence-coverage", "metric-thresholds"],
+    "retry_budget": 1,
+    "timeout_seconds": 300
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "listing_id": "listing-001",
+    "source": "amazon",
+    "source_record_id": "amz-B0CLEAN001",
+    "captured_at": "2026-04-22T09:00:00Z",
+    "product_title": "Hydration Tablets Lemon 12 Count",
+    "brand_name": "PeakFuel",
+    "category_path": ["hydration", "tablets"],
+    "price": 8.99,
+    "currency": "USD",
+    "unit_price": 0.75,
+    "unit_measure": "count",
+    "pack_count": 12,
+    "availability": "in_stock",
+    "rating": 4.5,
+    "review_count": 324,
+    "raw_payload_uri": "s3://brand-gap/raw/2026-04-22/amz-B0CLEAN001.json"
+  },
+  {
+    "listing_id": "listing-002",
+    "source": "walmart",
+    "source_record_id": "wmt-99887766",
+    "captured_at": "2026-04-22T09:00:00Z",
+    "product_title": "Travel Electrolyte Powder Sticks 10 Count",
+    "brand_name": "TrailDrop",
+    "category_path": ["hydration", "powder-sticks"],
+    "price": 9.49,
+    "currency": "USD",
+    "unit_price": 0.95,
+    "unit_measure": "count",
+    "pack_count": 10,
+    "availability": "limited",
+    "rating": 4.2,
+    "review_count": 118,
+    "raw_payload_uri": "s3://brand-gap/raw/2026-04-22/wmt-99887766.json"
+  }
+]

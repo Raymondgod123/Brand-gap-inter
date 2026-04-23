@@ -1,0 +1,28 @@
+{
+  "metrics": {
+    "taxonomy_case_accuracy": {
+      "minimum": 0.95
+    },
+    "taxonomy_axis_accuracy_need_state": {
+      "minimum": 1.0
+    },
+    "taxonomy_axis_accuracy_occasion": {
+      "minimum": 1.0
+    },
+    "taxonomy_axis_accuracy_format": {
+      "minimum": 1.0
+    },
+    "taxonomy_axis_accuracy_audience": {
+      "minimum": 1.0
+    },
+    "taxonomy_invalid_assignment_rate": {
+      "maximum": 0.0
+    },
+    "taxonomy_warning_expectation_pass_rate": {
+      "minimum": 1.0
+    },
+    "taxonomy_repeat_run_stability": {
+      "minimum": 1.0
+    }
+  }
+}

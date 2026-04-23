@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaxonomyBatchReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_id",
+    "taxonomy_version",
+    "run_status",
+    "total_listings",
+    "assigned_count",
+    "failed_count",
+    "warning_records",
+    "records"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "taxonomy_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "total_listings": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "assigned_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "failed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "warning_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "listing_id",
+          "status",
+          "warning_count",
+          "issue_count"
+        ],
+        "properties": {
+          "listing_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": ["assigned", "invalid"]
+          },
+          "warning_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "issue_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    }
+  }
+}

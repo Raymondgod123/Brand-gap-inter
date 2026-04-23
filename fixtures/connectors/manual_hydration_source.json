@@ -1,0 +1,28 @@
+[
+  {
+    "record_id": "manual-001",
+    "source": "manual",
+    "snapshot_id": "snapshot-manual-hydration-001",
+    "captured_at": "2026-04-22T10:00:00Z",
+    "cursor": "page-1",
+    "payload": {
+      "title": "Hydration Chews Mixed Berry 8 Count",
+      "brand": "PeakFuel",
+      "price": 6.99,
+      "availability": "in_stock"
+    }
+  },
+  {
+    "record_id": "manual-002",
+    "source": "manual",
+    "snapshot_id": "snapshot-manual-hydration-001",
+    "captured_at": "2026-04-22T10:00:00Z",
+    "cursor": "page-1",
+    "payload": {
+      "title": "Electrolyte Gummies Citrus 30 Count",
+      "brand": "TrailDrop",
+      "price": 11.49,
+      "availability": "limited"
+    }
+  }
+]

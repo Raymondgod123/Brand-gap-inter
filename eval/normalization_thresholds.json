@@ -1,0 +1,26 @@
+{
+  "metrics": {
+    "normalization_batch_run_status_accuracy": {
+      "minimum": 1.0
+    },
+    "normalization_summary_accuracy": {
+      "minimum": 1.0
+    },
+    "normalization_record_status_accuracy": {
+      "minimum": 1.0
+    },
+    "normalization_duplicate_link_accuracy": {
+      "minimum": 1.0
+    },
+    "normalization_provenance_coverage": {
+      "minimum": 1.0
+    },
+    "normalization_low_confidence_reason_coverage": {
+      "minimum": 1.0
+    },
+    "normalization_repeat_run_stability": {
+      "minimum": 1.0
+    }
+  }
+}
+

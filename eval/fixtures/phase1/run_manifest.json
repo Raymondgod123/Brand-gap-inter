@@ -1,0 +1,12 @@
+{
+  "run_id": "run-2026-04-22T09-00-00Z",
+  "pipeline_version": "phase1-foundation",
+  "schema_version": "phase1-v1",
+  "prompt_version": "prompt-v1",
+  "source_snapshot": "snapshot-2026-04-22-us-hydration",
+  "artifact_root_uri": "s3://brand-gap/runs/run-2026-04-22T09-00-00Z/",
+  "started_at": "2026-04-22T09:00:00Z",
+  "completed_at": "2026-04-22T09:16:00Z",
+  "status": "completed",
+  "task_count": 2
+}

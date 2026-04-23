@@ -1,0 +1,28 @@
+[
+  {
+    "listing_id": "listing-001",
+    "taxonomy_version": "taxonomy-v1",
+    "axes": {
+      "need_state": "rapid_hydration",
+      "occasion": "travel",
+      "format": "tablet",
+      "audience": "active_adults"
+    },
+    "adjacent_categories": ["outdoor-performance", "wellness"],
+    "confidence": 0.93,
+    "assigned_at": "2026-04-22T09:05:00Z"
+  },
+  {
+    "listing_id": "listing-002",
+    "taxonomy_version": "taxonomy-v1",
+    "axes": {
+      "need_state": "daily_hydration",
+      "occasion": "on_the_go",
+      "format": "powder",
+      "audience": "commuters"
+    },
+    "adjacent_categories": ["travel-wellness"],
+    "confidence": 0.9,
+    "assigned_at": "2026-04-22T09:05:00Z"
+  }
+]

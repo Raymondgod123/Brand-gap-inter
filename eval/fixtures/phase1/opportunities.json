@@ -1,0 +1,35 @@
+[
+  {
+    "opportunity_id": "opp-001",
+    "title": "Portable hydration tablets for commuter bags",
+    "summary": "Lightweight hydration formats are present, but commuter-specific positioning is under-served across the current listing set.",
+    "taxonomy_scope": {
+      "need_state": "daily_hydration",
+      "occasion": "on_the_go",
+      "format": "tablet",
+      "audience": "commuters"
+    },
+    "demand_signal_score": 0.74,
+    "supply_gap_score": 0.68,
+    "validation_score": 0.81,
+    "confidence": 0.78,
+    "evidence": [
+      {
+        "evidence_id": "evidence-001",
+        "kind": "supply_gap",
+        "summary": "Only two portable hydration listings were observed, each targeting different usage contexts.",
+        "source_record_ids": ["amz-B0CLEAN001", "wmt-99887766"],
+        "confidence": 0.86
+      },
+      {
+        "evidence_id": "evidence-002",
+        "kind": "validation_note",
+        "summary": "Both listings validate cleanly against the normalized schema and taxonomy contracts.",
+        "source_record_ids": ["amz-B0CLEAN001"],
+        "confidence": 0.91
+      }
+    ],
+    "generated_at": "2026-04-22T09:15:00Z",
+    "schema_version": "phase1-v1"
+  }
+]

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NormalizationBatchReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_id",
+    "source",
+    "run_status",
+    "total_records",
+    "normalized_records",
+    "duplicate_records",
+    "invalid_records",
+    "warning_records",
+    "low_confidence_records",
+    "records"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "total_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "normalized_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "duplicate_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "invalid_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "warning_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "low_confidence_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_record_id",
+          "status",
+          "warning_count",
+          "issue_count",
+          "low_confidence_reason_count"
+        ],
+        "properties": {
+          "source_record_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": ["normalized", "duplicate", "invalid"]
+          },
+          "warning_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "issue_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "low_confidence_reason_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "duplicate_of": {
+            "type": "string",
+            "minLength": 1
+          },
+          "listing_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

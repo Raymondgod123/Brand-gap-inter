@@ -1,0 +1,25 @@
+{
+  "metrics": {
+    "listing_validation_pass_rate": {
+      "minimum": 1.0
+    },
+    "taxonomy_validation_pass_rate": {
+      "minimum": 1.0
+    },
+    "taxonomy_assignment_coverage": {
+      "minimum": 1.0
+    },
+    "opportunity_validation_pass_rate": {
+      "minimum": 1.0
+    },
+    "opportunity_evidence_coverage": {
+      "minimum": 1.0
+    },
+    "run_metadata_pass_rate": {
+      "minimum": 1.0
+    },
+    "task_dependency_integrity": {
+      "minimum": 1.0
+    }
+  }
+}

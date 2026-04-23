@@ -1,0 +1,206 @@
+[
+  {
+    "batch_id": "amazon_dirty_batch_v1",
+    "description": "Dirty Amazon batch covering fallback parsing, duplicates, missing html, and robot-check pages.",
+    "manifest": {
+      "snapshot_id": "fixture-amazon-dirty-001",
+      "source": "amazon",
+      "captured_at": "2026-04-22T00:00:00Z",
+      "storage_uri": "fixtures://normalization/amazon_dirty_cases"
+    },
+    "records": [
+      {
+        "record_id": "clean-1",
+        "source": "amazon",
+        "snapshot_id": "fixture-amazon-dirty-001",
+        "captured_at": "2026-04-22T00:00:00Z",
+        "cursor": "fixtures://normalization/amazon_dirty_cases#clean-1",
+        "payload": {
+          "asin": "CLEAN00001",
+          "original_url": "https://www.amazon.com/Example-Brand-Drink/dp/CLEAN00001",
+          "canonical_url": "https://www.amazon.com/dp/CLEAN00001",
+          "final_url": "https://www.amazon.com/dp/CLEAN00001",
+          "status_code": 200,
+          "page_title": "Amazon.com : Example Brand Energy Drink 12 Count : Grocery & Gourmet Food",
+          "is_robot_check": false,
+          "content_sha256": "fixture-clean-1",
+          "headers": {
+            "Content-Type": "text/html"
+          },
+          "html": "<html><body><span id=\"productTitle\">Example Brand Energy Drink 12 Count</span><a id=\"bylineInfo\">Visit the Example Brand Store</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Beverages</a></span></li></ul><div id=\"availability\">In Stock.</div><script>var data = {&quot;priceAmount&quot;: 18.00};</script></body></html>"
+        }
+      },
+      {
+        "record_id": "fallback-1",
+        "source": "amazon",
+        "snapshot_id": "fixture-amazon-dirty-001",
+        "captured_at": "2026-04-22T00:00:00Z",
+        "cursor": "fixtures://normalization/amazon_dirty_cases#fallback-1",
+        "payload": {
+          "asin": "FALLBACK01",
+          "original_url": "https://www.amazon.com/dp/FALLBACK01",
+          "canonical_url": "https://www.amazon.com/dp/FALLBACK01",
+          "final_url": "https://www.amazon.com/dp/FALLBACK01",
+          "status_code": 200,
+          "page_title": "Amazon.com : MysteryBrand Hydration Mix : Grocery & Gourmet Food",
+          "is_robot_check": false,
+          "content_sha256": "fixture-fallback-1",
+          "headers": {
+            "Content-Type": "text/html"
+          },
+          "html": "<html><body><span id=\"productTitle\">MysteryBrand Hydration Mix</span><div id=\"corePriceDisplay_desktop_feature_div\"><span class=\"a-offscreen\">$12.00</span></div></body></html>"
+        }
+      },
+      {
+        "record_id": "missing-html-1",
+        "source": "amazon",
+        "snapshot_id": "fixture-amazon-dirty-001",
+        "captured_at": "2026-04-22T00:00:00Z",
+        "cursor": "fixtures://normalization/amazon_dirty_cases#missing-html-1",
+        "payload": {
+          "asin": "MISSHTML1A",
+          "original_url": "https://www.amazon.com/Example-Brand-Product/dp/MISSHTML1A",
+          "canonical_url": "https://www.amazon.com/dp/MISSHTML1A",
+          "final_url": "https://www.amazon.com/dp/MISSHTML1A",
+          "status_code": 200,
+          "page_title": "Amazon.com : Example Brand Product : Grocery & Gourmet Food",
+          "is_robot_check": false,
+          "content_sha256": "fixture-missing-html-1",
+          "headers": {
+            "Content-Type": "text/html"
+          },
+          "html": ""
+        }
+      },
+      {
+        "record_id": "robot-check-1",
+        "source": "amazon",
+        "snapshot_id": "fixture-amazon-dirty-001",
+        "captured_at": "2026-04-22T00:00:00Z",
+        "cursor": "fixtures://normalization/amazon_dirty_cases#robot-check-1",
+        "payload": {
+          "asin": "ROBOT00001",
+          "original_url": "https://www.amazon.com/dp/ROBOT00001",
+          "canonical_url": "https://www.amazon.com/dp/ROBOT00001",
+          "final_url": "https://www.amazon.com/dp/ROBOT00001",
+          "status_code": 200,
+          "page_title": "Robot Check",
+          "is_robot_check": true,
+          "content_sha256": "fixture-robot-check-1",
+          "headers": {
+            "Content-Type": "text/html"
+          },
+          "html": "<html><head><title>Robot Check</title></head><body>Type the characters you see in this image</body></html>"
+        }
+      },
+      {
+        "record_id": "dup-1",
+        "source": "amazon",
+        "snapshot_id": "fixture-amazon-dirty-001",
+        "captured_at": "2026-04-22T00:00:00Z",
+        "cursor": "fixtures://normalization/amazon_dirty_cases#dup-1",
+        "payload": {
+          "asin": "DUPLICA001",
+          "original_url": "https://www.amazon.com/Example-Brand-Protein/dp/DUPLICA001",
+          "canonical_url": "https://www.amazon.com/dp/DUPLICA001",
+          "final_url": "https://www.amazon.com/dp/DUPLICA001",
+          "status_code": 200,
+          "page_title": "Amazon.com : Example Brand Protein Bar 6 Count : Grocery & Gourmet Food",
+          "is_robot_check": false,
+          "content_sha256": "fixture-dup-1",
+          "headers": {
+            "Content-Type": "text/html"
+          },
+          "html": "<html><body><span id=\"productTitle\">Example Brand Protein Bar 6 Count</span><a id=\"bylineInfo\">Example Brand</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li></ul><script>var data = {&quot;priceAmount&quot;: 12.50};</script><div id=\"availability\">Available from these sellers.</div></body></html>"
+        }
+      },
+      {
+        "record_id": "dup-2",
+        "source": "amazon",
+        "snapshot_id": "fixture-amazon-dirty-001",
+        "captured_at": "2026-04-22T00:00:00Z",
+        "cursor": "fixtures://normalization/amazon_dirty_cases#dup-2",
+        "payload": {
+          "asin": "DUPLICA001",
+          "original_url": "https://www.amazon.com/Example-Brand-Protein/dp/DUPLICA001?th=1",
+          "canonical_url": "https://www.amazon.com/dp/DUPLICA001",
+          "final_url": "https://www.amazon.com/dp/DUPLICA001",
+          "status_code": 200,
+          "page_title": "Amazon.com : Example Brand Protein Bar 6 Count : Grocery & Gourmet Food",
+          "is_robot_check": false,
+          "content_sha256": "fixture-dup-2",
+          "headers": {
+            "Content-Type": "text/html"
+          },
+          "html": "<html><body><span id=\"productTitle\">Example Brand Protein Bar 6 Count</span><a id=\"bylineInfo\">Example Brand</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li></ul><script>var data = {&quot;priceAmount&quot;: 12.50};</script><div id=\"availability\">Available from these sellers.</div></body></html>"
+        }
+      },
+      {
+        "record_id": "multi-size-1",
+        "source": "amazon",
+        "snapshot_id": "fixture-amazon-dirty-001",
+        "captured_at": "2026-04-22T00:00:00Z",
+        "cursor": "fixtures://normalization/amazon_dirty_cases#multi-size-1",
+        "payload": {
+          "asin": "MULTISIZE1",
+          "original_url": "https://www.amazon.com/Example-Brand-Hydration/dp/MULTISIZE1",
+          "canonical_url": "https://www.amazon.com/dp/MULTISIZE1",
+          "final_url": "https://www.amazon.com/dp/MULTISIZE1",
+          "status_code": 200,
+          "page_title": "Amazon.com : Example Brand Hydration Powder 12 Count 12 Fl Oz (Pack of 6) : Grocery & Gourmet Food",
+          "is_robot_check": false,
+          "content_sha256": "fixture-multi-size-1",
+          "headers": {
+            "Content-Type": "text/html"
+          },
+          "html": "<html><body><span id=\"productTitle\">Example Brand Hydration Powder 12 Count 12 Fl Oz (Pack of 6)</span><a id=\"bylineInfo\">Visit the Example Brand Store</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Beverages</a></span></li></ul><script>var data = {&quot;priceAmount&quot;: 24.00};</script><div id=\"availability\">In Stock.</div></body></html>"
+        }
+      }
+    ],
+    "expected": {
+      "run_status": "partial_success",
+      "summary": {
+        "total_records": 7,
+        "normalized_records": 4,
+        "duplicate_records": 1,
+        "invalid_records": 2,
+        "low_confidence_records": 2
+      },
+      "required_provenance_fields": ["brand_name", "price", "pack_count", "unit_measure", "category_path", "availability"],
+      "record_expectations": {
+        "clean-1": {
+          "status": "normalized"
+        },
+        "fallback-1": {
+          "status": "normalized",
+          "required_low_confidence_codes": [
+            "brand_inferred_from_title",
+            "missing_breadcrumb_categories",
+            "size_signal_missing",
+            "availability_unclear",
+            "price_secondary_pattern"
+          ]
+        },
+        "missing-html-1": {
+          "status": "invalid",
+          "required_issue_substrings": ["missing raw html payload"]
+        },
+        "robot-check-1": {
+          "status": "invalid",
+          "required_issue_substrings": ["robot-check page"]
+        },
+        "dup-1": {
+          "status": "normalized"
+        },
+        "dup-2": {
+          "status": "duplicate",
+          "duplicate_of": "dup-1"
+        },
+        "multi-size-1": {
+          "status": "normalized",
+          "required_low_confidence_codes": ["multiple_size_signals_detected"]
+        }
+      }
+    }
+  }
+]

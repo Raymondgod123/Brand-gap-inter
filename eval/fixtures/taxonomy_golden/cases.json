@@ -1,0 +1,204 @@
+[
+  {
+    "case_id": "sweetener_lakanto",
+    "description": "Clean sweetener listing with strong baking and keto signals.",
+    "listing": {
+      "listing_id": "amazon:B098H7XWQ6",
+      "source": "amazon",
+      "source_record_id": "B098H7XWQ6",
+      "captured_at": "2026-04-22T01:54:11Z",
+      "product_title": "Lakanto Monk Fruit Sweetener With Erythritol, White Sugar Substitute For Baking, Keto, 5 LB Bag",
+      "brand_name": "Lakanto",
+      "category_path": [
+        "grocery-gourmet-food",
+        "pantry-staples",
+        "cooking-baking",
+        "baking-syrups-sugars-sweeteners",
+        "sugar-substitutes"
+      ],
+      "price": 23.94,
+      "currency": "USD",
+      "unit_price": 4.788,
+      "unit_measure": "lb",
+      "pack_count": 1,
+      "availability": "out_of_stock",
+      "raw_payload_uri": "fixtures://taxonomy_golden/sweetener_lakanto.json",
+      "rating": 4.6,
+      "review_count": 83658
+    },
+    "expected": {
+      "axes": {
+        "need_state": "sugar_replacement",
+        "occasion": "baking",
+        "format": "powder",
+        "audience": "keto_shoppers"
+      },
+      "min_confidence": 0.8,
+      "warning_count": 0
+    }
+  },
+  {
+    "case_id": "hydration_tablets",
+    "description": "Hydration tablets with workout usage cues.",
+    "listing": {
+      "listing_id": "manual:hydration-001",
+      "source": "manual",
+      "source_record_id": "hydration-001",
+      "captured_at": "2026-04-22T10:00:00Z",
+      "product_title": "PeakFuel Hydration Tablets Lemon 12 Count",
+      "brand_name": "PeakFuel",
+      "category_path": [
+        "sports-nutrition",
+        "hydration",
+        "tablets"
+      ],
+      "price": 8.99,
+      "currency": "USD",
+      "unit_price": 0.7492,
+      "unit_measure": "count",
+      "pack_count": 1,
+      "availability": "in_stock",
+      "raw_payload_uri": "fixtures://taxonomy_golden/hydration_tablets.json"
+    },
+    "expected": {
+      "axes": {
+        "need_state": "rapid_hydration",
+        "occasion": "workout",
+        "format": "tablet",
+        "audience": "active_adults"
+      },
+      "min_confidence": 0.75,
+      "warning_count": 0
+    }
+  },
+  {
+    "case_id": "protein_bar",
+    "description": "Protein bars with portable snacking cues.",
+    "listing": {
+      "listing_id": "manual:protein-001",
+      "source": "manual",
+      "source_record_id": "protein-001",
+      "captured_at": "2026-04-22T10:00:00Z",
+      "product_title": "TrailStrong Protein Bar Chocolate 12 Count",
+      "brand_name": "TrailStrong",
+      "category_path": [
+        "nutrition-bars",
+        "protein-bars"
+      ],
+      "price": 18.0,
+      "currency": "USD",
+      "unit_price": 1.5,
+      "unit_measure": "count",
+      "pack_count": 1,
+      "availability": "in_stock",
+      "raw_payload_uri": "fixtures://taxonomy_golden/protein_bar.json"
+    },
+    "expected": {
+      "axes": {
+        "need_state": "satiety_support",
+        "occasion": "on_the_go",
+        "format": "bar",
+        "audience": "active_adults"
+      },
+      "min_confidence": 0.75,
+      "warning_count": 0
+    }
+  },
+  {
+    "case_id": "energy_drink",
+    "description": "Energy drink with clear stimulant signal but weaker occasion signal.",
+    "listing": {
+      "listing_id": "manual:energy-001",
+      "source": "manual",
+      "source_record_id": "energy-001",
+      "captured_at": "2026-04-22T10:00:00Z",
+      "product_title": "VoltRush Energy Drink Citrus 12 Fl Oz Pack of 12",
+      "brand_name": "VoltRush",
+      "category_path": [
+        "beverages",
+        "energy-drinks"
+      ],
+      "price": 26.4,
+      "currency": "USD",
+      "unit_price": 0.1833,
+      "unit_measure": "oz",
+      "pack_count": 12,
+      "availability": "in_stock",
+      "raw_payload_uri": "fixtures://taxonomy_golden/energy_drink.json"
+    },
+    "expected": {
+      "axes": {
+        "need_state": "energy_boost",
+        "occasion": "daily_use",
+        "format": "ready_to_drink",
+        "audience": "active_adults"
+      },
+      "min_confidence": 0.65,
+      "warning_count": 0
+    }
+  },
+  {
+    "case_id": "ambiguous_powder",
+    "description": "Ambiguous listing with weak signals that should stay low-confidence.",
+    "listing": {
+      "listing_id": "manual:ambiguous-001",
+      "source": "manual",
+      "source_record_id": "ambiguous-001",
+      "captured_at": "2026-04-22T10:00:00Z",
+      "product_title": "Daily Wellness Mix 30 Count",
+      "brand_name": "Northstar",
+      "category_path": [
+        "uncategorized"
+      ],
+      "price": 14.99,
+      "currency": "USD",
+      "unit_price": 0.4997,
+      "unit_measure": "count",
+      "pack_count": 1,
+      "availability": "unknown",
+      "raw_payload_uri": "fixtures://taxonomy_golden/ambiguous_powder.json"
+    },
+    "expected": {
+      "axes": {
+        "need_state": "general_wellness",
+        "occasion": "daily_use",
+        "format": "general",
+        "audience": "general_adults"
+      },
+      "max_confidence": 0.6,
+      "warning_count": 2
+    }
+  },
+  {
+    "case_id": "weak_category_hydration_sticks",
+    "description": "Hydration sticks with weak category breadcrumbs but strong title cues.",
+    "listing": {
+      "listing_id": "manual:hydration-weak-001",
+      "source": "manual",
+      "source_record_id": "hydration-weak-001",
+      "captured_at": "2026-04-22T10:00:00Z",
+      "product_title": "Electrolyte Powder Travel Sticks 8 Count",
+      "brand_name": "RoamFuel",
+      "category_path": [
+        "uncategorized"
+      ],
+      "price": 9.99,
+      "currency": "USD",
+      "unit_price": 1.2488,
+      "unit_measure": "count",
+      "pack_count": 1,
+      "availability": "limited",
+      "raw_payload_uri": "fixtures://taxonomy_golden/weak_category_hydration_sticks.json"
+    },
+    "expected": {
+      "axes": {
+        "need_state": "rapid_hydration",
+        "occasion": "on_the_go",
+        "format": "powder",
+        "audience": "active_adults"
+      },
+      "min_confidence": 0.75,
+      "warning_count": 0
+    }
+  }
+]

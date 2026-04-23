@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NormalizationRecordResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_record_id",
+    "status",
+    "listing_id",
+    "raw_payload_uri",
+    "warnings",
+    "low_confidence_reasons",
+    "field_provenance",
+    "issues",
+    "duplicate_of"
+  ],
+  "properties": {
+    "source_record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["normalized", "duplicate", "invalid"]
+    },
+    "listing_id": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "raw_payload_uri": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "low_confidence_reasons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "field", "message"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "field": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "field_provenance": {
+      "type": "object"
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "message", "severity"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "duplicate_of": {
+      "type": ["string", "null"],
+      "minLength": 1
+    }
+  }
+}
+

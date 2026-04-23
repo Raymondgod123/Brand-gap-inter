@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RunManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "pipeline_version",
+    "schema_version",
+    "prompt_version",
+    "source_snapshot",
+    "started_at",
+    "status",
+    "task_count",
+    "artifact_root_uri"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pipeline_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "prompt_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_snapshot": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_root_uri": {
+      "type": "string",
+      "minLength": 1
+    },
+    "started_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "completed_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "running", "failed", "completed", "rolled_back"]
+    },
+    "task_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}
