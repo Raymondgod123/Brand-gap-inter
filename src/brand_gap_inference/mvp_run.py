@@ -24,6 +24,52 @@ class MvpRunResult:
     opportunity: dict
 
 
+class MvpRunFailed(RuntimeError):
+    def __init__(
+        self,
+        message: str,
+        *,
+        stage: str,
+        snapshot_id: str,
+        output_dir: Path,
+        artifacts: dict[str, str],
+    ) -> None:
+        super().__init__(message)
+        self.stage = stage
+        self.snapshot_id = snapshot_id
+        self.output_dir = output_dir
+        self.artifacts = artifacts
+
+
+def _write_failure_report(output_dir: Path, *, snapshot_id: str, stage: str, error: str) -> str:
+    report_path = output_dir / "mvp_report.md"
+    report_path.write_text(
+        "\n".join(
+            [
+                "# MVP Gap Report (Failed)",
+                "",
+                f"Snapshot: `{snapshot_id}`",
+                "",
+                f"Stage: `{stage}`",
+                "",
+                "## What Happened",
+                error.strip(),
+                "",
+                "## Notes",
+                "- This is decision support, not an autonomous truth engine.",
+                "- The run stopped early to avoid producing silently corrupted output.",
+                "",
+                "## Next Debug Steps",
+                "- Inspect `normalization_records.json` for specific issues and field provenance.",
+                "- Inspect the raw snapshot under `data/raw/.../<snapshot_id>/` to see the captured HTML.",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    return str(report_path)
+
+
 def run_mvp(
     *,
     url: str,
@@ -52,9 +98,28 @@ def run_mvp(
 
     if normalization_result.summary.run_status == "failed":
         # Keep artifacts, but stop before taxonomy/opportunity generation.
-        raise RuntimeError(
+        issue_bits: list[str] = []
+        for record in normalization_result.records:
+            for issue in record.issues:
+                issue_bits.append(f"{record.source_record_id}: {issue.message}")
+        issue_suffix = f" | issues: {'; '.join(issue_bits)}" if issue_bits else ""
+        error = (
             f"normalization failed: normalized_records={normalization_result.summary.normalized_records} "
-            f"invalid_records={normalization_result.summary.invalid_records}"
+            f"invalid_records={normalization_result.summary.invalid_records}{issue_suffix}"
+        )
+        artifacts = dict(norm_artifacts)
+        artifacts["mvp_report"] = _write_failure_report(
+            resolved_output_dir,
+            snapshot_id=snapshot_id,
+            stage="normalize",
+            error=error,
+        )
+        raise MvpRunFailed(
+            error,
+            stage="normalize",
+            snapshot_id=snapshot_id,
+            output_dir=resolved_output_dir,
+            artifacts=artifacts,
         )
 
     listing = normalization_result.normalized_listings[0]
@@ -75,7 +140,28 @@ def run_mvp(
     tax_artifacts = write_taxonomy_artifacts(resolved_output_dir, snapshot_id, taxonomy_result)
 
     if taxonomy_result.summary.run_status == "failed":
-        raise RuntimeError("taxonomy assignment failed for the normalized listing")
+        issue_bits: list[str] = []
+        for record in taxonomy_result.records:
+            for issue in record.issues:
+                issue_bits.append(f"{record.listing_id}: {issue.message}")
+        issue_suffix = f" | issues: {'; '.join(issue_bits)}" if issue_bits else ""
+        error = f"taxonomy assignment failed for the normalized listing{issue_suffix}"
+        artifacts = {}
+        artifacts.update(norm_artifacts)
+        artifacts.update(tax_artifacts)
+        artifacts["mvp_report"] = _write_failure_report(
+            resolved_output_dir,
+            snapshot_id=snapshot_id,
+            stage="taxonomy",
+            error=error,
+        )
+        raise MvpRunFailed(
+            error,
+            stage="taxonomy",
+            snapshot_id=snapshot_id,
+            output_dir=resolved_output_dir,
+            artifacts=artifacts,
+        )
 
     taxonomy_assignment = taxonomy_result.assignments[0]
 
@@ -136,6 +222,21 @@ def main(argv: list[str] | None = None) -> int:
             )
         )
         return 0
+    except MvpRunFailed as error:
+        print(
+            json.dumps(
+                {
+                    "status": "failed",
+                    "stage": error.stage,
+                    "snapshot_id": error.snapshot_id,
+                    "output_dir": str(error.output_dir),
+                    "artifacts": error.artifacts,
+                    "error": str(error),
+                },
+                indent=2,
+            )
+        )
+        return 1
     except (HttpFetchError, ValueError, RuntimeError) as error:
         # Avoid tracebacks for operators; emit a clear summary.
         print(json.dumps({"status": "failed", "error": str(error)}, indent=2))

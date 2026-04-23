@@ -7,7 +7,7 @@ from pathlib import Path
 
 from brand_gap_inference.contracts import validate_document
 from brand_gap_inference.http_client import HttpFetcher, HttpResponse
-from brand_gap_inference.mvp_run import run_mvp
+from brand_gap_inference.mvp_run import MvpRunFailed, run_mvp
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRATCH_ROOT = ROOT / ".tmp-tests"
@@ -74,6 +74,49 @@ class MvpRunTests(unittest.TestCase):
         finally:
             shutil.rmtree(scratch_dir, ignore_errors=True)
 
+    def test_mvp_run_writes_failure_report_when_normalization_fails(self) -> None:
+        html = """
+        <html>
+          <head><title>Amazon.com : MysteryBrand Hydration Mix</title></head>
+          <body>
+            <span id="productTitle">MysteryBrand Hydration Mix</span>
+            <!-- Intentionally no price markup to force normalization failure -->
+          </body>
+        </html>
+        """
+        fetcher = StubFetcher(
+            HttpResponse(
+                status_code=200,
+                final_url="https://www.amazon.com/dp/MVPFAIL001",
+                headers={"content-type": "text/html"},
+                body=html,
+            )
+        )
+
+        scratch_dir = self._make_scratch_dir("mvp-run-failure")
+        try:
+            with self.assertRaises(MvpRunFailed) as context:
+                run_mvp(
+                    url="https://www.amazon.com/dp/MVPFAIL001",
+                    store_dir=scratch_dir / "raw",
+                    output_dir=scratch_dir / "artifacts",
+                    fetcher=fetcher,
+                    captured_at="2026-04-23T00:00:00Z",
+                    generated_at="2026-04-23T00:00:01Z",
+                )
+
+            error = context.exception
+            self.assertEqual("normalize", error.stage)
+            self.assertTrue(Path(error.artifacts["normalization_report"]).exists())
+            self.assertTrue(Path(error.artifacts["normalization_records"]).exists())
+            self.assertTrue(Path(error.artifacts["mvp_report"]).exists())
+
+            report_text = Path(error.artifacts["mvp_report"]).read_text(encoding="utf-8")
+            self.assertIn("MVP Gap Report (Failed)", report_text)
+            self.assertIn("Stage: `normalize`", report_text)
+        finally:
+            shutil.rmtree(scratch_dir, ignore_errors=True)
+
     def _make_scratch_dir(self, name: str) -> Path:
         SCRATCH_ROOT.mkdir(exist_ok=True)
         scratch_dir = SCRATCH_ROOT / name
@@ -84,4 +127,3 @@ class MvpRunTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
