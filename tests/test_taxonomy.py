@@ -11,13 +11,13 @@ from brand_gap_inference.taxonomy import TaxonomyAssigner, write_taxonomy_artifa
 from brand_gap_inference.connectors import RawSourceRecord
 
 ROOT = Path(__file__).resolve().parents[1]
-LIVE_SNAPSHOT_PATH = ROOT / "data" / "raw" / "amazon" / "amazon-B098H7XWQ6-2026-04-22T01-54-11Z" / "B098H7XWQ6.json"
+DIRTY_FIXTURE_PATH = ROOT / "fixtures" / "normalization" / "amazon_dirty_cases.json"
 SCRATCH_ROOT = ROOT / ".tmp-tests"
 
 
 class TaxonomyTests(unittest.TestCase):
     def test_taxonomy_assigns_live_sweetener_listing(self) -> None:
-        listing = self._live_normalized_listing()
+        listing = self._sweetener_listing()
 
         result = TaxonomyAssigner().assign_batch([listing], snapshot_id="snapshot-live")
 
@@ -37,15 +37,16 @@ class TaxonomyTests(unittest.TestCase):
         self.assertEqual("invalid", result.records[0].status)
 
     def test_artifact_writers_emit_structured_reports(self) -> None:
-        listing = self._live_normalized_listing()
-        taxonomy_result = TaxonomyAssigner().assign_batch([listing], snapshot_id="snapshot-live")
-        normalization_result = BatchNormalizer().normalize_snapshot(
-            self._live_manifest(),
-            [self._live_record()],
-        )
+        taxonomy_result = TaxonomyAssigner().assign_batch([self._sweetener_listing()], snapshot_id="snapshot-live")
+        normalization_record, normalization_manifest = self._fixture_record("clean-1")
+        normalization_result = BatchNormalizer().normalize_snapshot(normalization_manifest, [normalization_record])
         scratch_dir = self._make_scratch_dir("artifacts")
         try:
-            normalization_artifacts = write_normalization_artifacts(scratch_dir, self._live_manifest(), normalization_result)
+            normalization_artifacts = write_normalization_artifacts(
+                scratch_dir,
+                normalization_manifest,
+                normalization_result,
+            )
             taxonomy_artifacts = write_taxonomy_artifacts(scratch_dir, "snapshot-live", taxonomy_result)
 
             normalization_report = json.loads(Path(normalization_artifacts["normalization_report"]).read_text(encoding="utf-8"))
@@ -58,24 +59,39 @@ class TaxonomyTests(unittest.TestCase):
         finally:
             shutil.rmtree(scratch_dir, ignore_errors=True)
 
-    def _live_record(self) -> RawSourceRecord:
-        payload = json.loads(LIVE_SNAPSHOT_PATH.read_text(encoding="utf-8"))
-        return RawSourceRecord.from_dict(payload)
+    def _sweetener_listing(self) -> dict:
+        return {
+            "listing_id": "amazon:B098H7XWQ6",
+            "source": "amazon",
+            "source_record_id": "fixture-sweetener-1",
+            "captured_at": "2026-04-22T00:00:00Z",
+            "product_title": "Lakanto Monk Fruit Sweetener With Erythritol Classic White Sugar Replacement for Baking Keto Friendly 5 lb Bag",
+            "brand_name": "Lakanto",
+            "category_path": ["grocery", "baking", "sweeteners", "sugar-substitutes"],
+            "price": 23.94,
+            "currency": "USD",
+            "unit_price": 4.788,
+            "unit_measure": "lb",
+            "pack_count": 1,
+            "availability": "limited",
+            "rating": 4.6,
+            "review_count": 1000,
+            "raw_payload_uri": "fixtures://taxonomy/sweetener",
+        }
 
-    def _live_manifest(self) -> SourceSnapshotManifest:
-        record = self._live_record()
-        return SourceSnapshotManifest(
+    def _fixture_record(self, record_id: str) -> tuple[RawSourceRecord, SourceSnapshotManifest]:
+        fixture = json.loads(DIRTY_FIXTURE_PATH.read_text(encoding="utf-8"))
+        payload = next(item for item in fixture if item["record_id"] == record_id)
+        record = RawSourceRecord.from_dict(payload)
+        manifest = SourceSnapshotManifest(
             snapshot_id=record.snapshot_id,
             source=record.source,
             captured_at=record.captured_at,
             record_count=1,
             record_ids=[record.record_id],
-            storage_uri="data/raw/amazon/amazon-B098H7XWQ6-2026-04-22T01-54-11Z",
+            storage_uri=f"fixtures://normalization/amazon_dirty_cases#{record_id}",
         )
-
-    def _live_normalized_listing(self) -> dict:
-        result = BatchNormalizer().normalize_snapshot(self._live_manifest(), [self._live_record()])
-        return result.normalized_listings[0]
+        return record, manifest
 
     def _make_scratch_dir(self, name: str) -> Path:
         SCRATCH_ROOT.mkdir(exist_ok=True)

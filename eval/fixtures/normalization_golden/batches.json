@@ -177,8 +177,7 @@
             "brand_inferred_from_title",
             "missing_breadcrumb_categories",
             "size_signal_missing",
-            "availability_unclear",
-            "price_secondary_pattern"
+            "availability_unclear"
           ]
         },
         "missing-html-1": {

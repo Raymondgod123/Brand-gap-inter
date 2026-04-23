@@ -17,7 +17,7 @@
       "headers": {
         "Content-Type": "text/html"
       },
-      "html": "<html><body><span id=\"productTitle\">Example Brand Energy Drink 12 Count</span><a id=\"bylineInfo\">Visit the Example Brand Store</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Beverages</a></span></li></ul><div id=\"availability\">In Stock.</div><script>var data = {&quot;priceAmount&quot;: 18.00};</script></body></html>"
+      "html": "<html><body><span id=\"productTitle\">Example Brand Energy Drink 12 Count</span><a id=\"bylineInfo\">Visit the Example Brand Store</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Beverages</a></span></li></ul><div id=\"availability\">In Stock.</div><script>var data = {&quot;priceAmount&quot;: 18.00, &quot;asin&quot;: &quot;CLEAN00001&quot;};</script></body></html>"
     }
   },
   {
@@ -101,7 +101,7 @@
       "headers": {
         "Content-Type": "text/html"
       },
-      "html": "<html><body><span id=\"productTitle\">Example Brand Protein Bar 6 Count</span><a id=\"bylineInfo\">Example Brand</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li></ul><script>var data = {&quot;priceAmount&quot;: 12.50};</script><div id=\"availability\">Available from these sellers.</div></body></html>"
+      "html": "<html><body><span id=\"productTitle\">Example Brand Protein Bar 6 Count</span><a id=\"bylineInfo\">Example Brand</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li></ul><script>var data = {&quot;priceAmount&quot;: 12.50, &quot;asin&quot;: &quot;DUPLICA001&quot;};</script><div id=\"availability\">Available from these sellers.</div></body></html>"
     }
   },
   {
@@ -122,7 +122,7 @@
       "headers": {
         "Content-Type": "text/html"
       },
-      "html": "<html><body><span id=\"productTitle\">Example Brand Protein Bar 6 Count</span><a id=\"bylineInfo\">Example Brand</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li></ul><script>var data = {&quot;priceAmount&quot;: 12.50};</script><div id=\"availability\">Available from these sellers.</div></body></html>"
+      "html": "<html><body><span id=\"productTitle\">Example Brand Protein Bar 6 Count</span><a id=\"bylineInfo\">Example Brand</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li></ul><script>var data = {&quot;priceAmount&quot;: 12.50, &quot;asin&quot;: &quot;DUPLICA001&quot;};</script><div id=\"availability\">Available from these sellers.</div></body></html>"
     }
   },
   {
@@ -143,8 +143,7 @@
       "headers": {
         "Content-Type": "text/html"
       },
-      "html": "<html><body><span id=\"productTitle\">Example Brand Hydration Powder 12 Count 12 Fl Oz (Pack of 6)</span><a id=\"bylineInfo\">Visit the Example Brand Store</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Beverages</a></span></li></ul><script>var data = {&quot;priceAmount&quot;: 24.00};</script><div id=\"availability\">In Stock.</div></body></html>"
+      "html": "<html><body><span id=\"productTitle\">Example Brand Hydration Powder 12 Count 12 Fl Oz (Pack of 6)</span><a id=\"bylineInfo\">Visit the Example Brand Store</a><ul class=\"a-unordered-list a-horizontal a-size-small\"><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Grocery &amp; Gourmet Food</a></span></li><li><span class=\"a-list-item\"><a class=\"a-link-normal a-color-tertiary\">Beverages</a></span></li></ul><script>var data = {&quot;priceAmount&quot;: 24.00, &quot;asin&quot;: &quot;MULTISIZE1&quot;};</script><div id=\"availability\">In Stock.</div></body></html>"
     }
   }
 ]
-

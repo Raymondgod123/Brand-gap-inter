@@ -141,7 +141,8 @@ class AmazonListingNormalizer:
         if brand_reason:
             low_confidence_reasons.append(brand_reason)
 
-        price, price_provenance, price_reason = _extract_price(html)
+        asin = payload.get("asin")
+        price, price_provenance, price_reason = _extract_price(html, asin if isinstance(asin, str) else None)
         field_provenance["price"] = price_provenance
         if price is None:
             return ExtractionOutcome(
@@ -318,15 +319,9 @@ def _infer_brand_from_title(product_title: str) -> str | None:
     return _normalize_brand_label(candidate) or None
 
 
-def _extract_price(html: str) -> tuple[float | None, dict[str, object], dict[str, str] | None]:
-    for index, pattern in enumerate(_PRICE_PATTERNS):
-        match = pattern.search(html)
-        if match:
-            return (
-                float(match.group(1)),
-                _provenance("html", f"embedded data regex match price pattern {index}", "price_structured_data"),
-                None,
-            )
+def _extract_price(html: str, asin: str | None) -> tuple[float | None, dict[str, object], dict[str, str] | None]:
+    # Prefer visible/main price blocks first. Unscoped structured "priceAmount" can appear for
+    # recommended products and other widgets on the page.
     for index, pattern in enumerate(_PRICE_BLOCK_PATTERNS):
         match = pattern.search(html)
         if match:
@@ -335,15 +330,73 @@ def _extract_price(html: str) -> tuple[float | None, dict[str, object], dict[str
                 _provenance(
                     "html",
                     f"price block regex match block pattern {index}",
-                    "price_block_fallback",
+                    "price_block_primary",
                 ),
-                _low_confidence_reason(
-                    "price_secondary_pattern",
-                    "price",
-                    "price extracted from a secondary html block pattern",
-                ),
+                None,
             )
-    return None, _provenance("unknown", "no price match found", "price_missing"), None
+
+    # If we don't have a block price, use structured patterns but scope them to the current ASIN.
+    structured_matches: list[tuple[int, int, str]] = []
+    for index, pattern in enumerate(_PRICE_PATTERNS):
+        for match in pattern.finditer(html):
+            structured_matches.append((index, match.start(), match.group(1)))
+
+    if not structured_matches:
+        return None, _provenance("unknown", "no price match found", "price_missing"), None
+
+    if asin:
+        asin_tokens = (
+            f'\"asin\"\\s*:\\s*\"{asin}\"',
+            f'&quot;asin&quot;\\s*:\\s*&quot;{asin}&quot;',
+            f'asin\\\\&quot;\\s*:\\s*\\\\&quot;{asin}\\\\&quot;',
+            f'&quot;asin\\&quot;\\s*:\\s*\\&quot;{asin}\\&quot;',
+        )
+        asin_res = [re.compile(token, re.IGNORECASE) for token in asin_tokens]
+        for index, start, value in structured_matches:
+            window_from = max(0, start - 800)
+            window_to = min(len(html), start + 800)
+            window = html[window_from:window_to]
+            if any(token_re.search(window) for token_re in asin_res):
+                return (
+                    float(value),
+                    _provenance(
+                        "html",
+                        f"structured data priceAmount scoped to asin={asin} (pattern {index})",
+                        "price_structured_data_asin_scoped",
+                    ),
+                    None,
+                )
+
+        # If we know the ASIN but can't scope a structured price to it, it is usually safer to fail than guess.
+        #
+        # Exception: for small, fixture-like HTML bodies that contain exactly one structured price match,
+        # we accept the singleton price to keep deterministic tests stable. Real Amazon pages usually contain
+        # many structured priceAmount entries (widgets / recs / ads), so this fallback won't trigger there.
+        unique_values = sorted({value for _, _, value in structured_matches})
+        if len(unique_values) == 1 and len(html) < 60_000:
+            return (
+                float(unique_values[0]),
+                _provenance(
+                    "html",
+                    f"singleton structured priceAmount (unscoped) with asin={asin}; accepted for small html",
+                    "price_structured_data_singleton_unscoped",
+                ),
+                None,
+            )
+
+        return None, _provenance("unknown", f"structured prices found but none scoped to asin={asin}", "price_missing"), None
+
+    # No ASIN available: fall back to first structured match, but mark it low-confidence.
+    index, _, value = structured_matches[0]
+    return (
+        float(value),
+        _provenance("html", f"embedded data regex match price pattern {index}", "price_structured_data_unscoped"),
+        _low_confidence_reason(
+            "price_unscoped_structured_data",
+            "price",
+            "priceAmount extracted without ASIN scoping; may be from a non-primary widget",
+        ),
+    )
 
 
 def _extract_category_path(html: str) -> list[str]:

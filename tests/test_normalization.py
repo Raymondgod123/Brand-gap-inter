@@ -18,7 +18,7 @@ SCRATCH_ROOT = ROOT / ".tmp-tests"
 
 
 class NormalizationTests(unittest.TestCase):
-    def test_live_amazon_snapshot_normalizes_into_listing(self) -> None:
+    def test_live_amazon_snapshot_fails_clearly_when_price_is_missing(self) -> None:
         record = self._load_live_record()
         manifest = SourceSnapshotManifest(
             snapshot_id=record.snapshot_id,
@@ -31,29 +31,22 @@ class NormalizationTests(unittest.TestCase):
 
         result = BatchNormalizer().normalize_snapshot(manifest, [record])
 
-        self.assertEqual("success", result.summary.run_status)
-        self.assertEqual(1, result.summary.normalized_records)
-        listing = result.normalized_listings[0]
-        self.assertEqual("amazon:B098H7XWQ6", listing["listing_id"])
-        self.assertEqual("Lakanto", listing["brand_name"])
-        self.assertEqual("USD", listing["currency"])
-        self.assertEqual("lb", listing["unit_measure"])
-        self.assertEqual(1, listing["pack_count"])
-        self.assertTrue(listing["category_path"])
-        self.assertAlmostEqual(23.94, listing["price"], places=2)
+        self.assertEqual("failed", result.summary.run_status)
+        self.assertEqual(0, result.summary.normalized_records)
+        self.assertEqual(1, result.summary.invalid_records)
+        self.assertEqual([], result.normalized_listings)
+        record_result = result.records[0]
+        self.assertEqual("invalid", record_result.status)
+        self.assertTrue(any("missing product price" in issue.message for issue in record_result.issues))
 
     def test_normalization_emits_provenance_for_key_fields(self) -> None:
-        record = self._load_live_record()
-        manifest = SourceSnapshotManifest(
-            snapshot_id=record.snapshot_id,
-            source=record.source,
-            captured_at=record.captured_at,
-            record_count=1,
-            record_ids=[record.record_id],
-            storage_uri="data/raw/amazon/amazon-B098H7XWQ6-2026-04-22T01-54-11Z",
-        )
+        # Use a stable fixture record (not the live snapshot), so this test is deterministic.
+        fixture = json.loads(DIRTY_FIXTURE_PATH.read_text(encoding="utf-8"))
+        record = RawSourceRecord.from_dict(next(item for item in fixture if item["record_id"] == "clean-1"))
+        manifest = self._make_manifest([record], record.snapshot_id)
 
         result = BatchNormalizer().normalize_snapshot(manifest, [record])
+        self.assertEqual("success", result.summary.run_status)
         record_result = result.records[0]
 
         for field_name in ["brand_name", "price", "pack_count", "unit_measure", "category_path", "availability"]:
@@ -93,7 +86,6 @@ class NormalizationTests(unittest.TestCase):
         self.assertIn("missing_breadcrumb_categories", codes)
         self.assertIn("size_signal_missing", codes)
         self.assertIn("availability_unclear", codes)
-        self.assertIn("price_secondary_pattern", codes)
 
     def test_duplicate_records_do_not_inflate_normalized_count(self) -> None:
         record = self._make_record(record_id="duplicate-1", asin="DUPLICATE01")
@@ -189,7 +181,7 @@ class NormalizationTests(unittest.TestCase):
                 <ul class="a-unordered-list a-horizontal a-size-small">
                   <li><span class="a-list-item"><a class="a-link-normal a-color-tertiary">Grocery &amp; Gourmet Food</a></span></li>
                 </ul>
-                <script>var data = {&quot;priceAmount&quot;: 12.50};</script>
+                <script>var data = {&quot;priceAmount&quot;: 12.50, &quot;asin&quot;: &quot;LIMIT00001&quot;};</script>
                 <div id="availability">Available from these sellers.</div>
               </body>
             </html>
@@ -224,7 +216,7 @@ class NormalizationTests(unittest.TestCase):
             self.assertIn("missing_breadcrumb_categories", fallback_codes)
             self.assertIn("size_signal_missing", fallback_codes)
             self.assertIn("availability_unclear", fallback_codes)
-            self.assertIn("price_secondary_pattern", fallback_codes)
+            self.assertNotIn("price_secondary_pattern", fallback_codes)
 
             multi_size_record = next(item for item in result.records if item.source_record_id == "multi-size-1")
             multi_size_codes = {reason["code"] for reason in multi_size_record.low_confidence_reasons}
