@@ -1,0 +1,257 @@
+[
+  {
+    "batch_id": "decision_brief_supported_candy_batch_v1",
+    "description": "Strong candy gap should become a validate-now PM decision brief.",
+    "run_id": "decision-brief-candy-fixture",
+    "brand_profile_report": {
+      "run_id": "decision-brief-candy-fixture",
+      "status": "partial_success",
+      "category_context": "candy",
+      "total_profiles": 15,
+      "territory_counts": {
+        "mainstream_zero_sugar_candy": 2,
+        "value_multi_pack_candy": 4
+      },
+      "pricing_counts": {
+        "budget_anchor": 4,
+        "mid_market": 6,
+        "premium_pantry": 5
+      },
+      "crowded_territories": [
+        "mainstream_zero_sugar_candy"
+      ],
+      "underrepresented_spaces": [
+        "No clear premium indulgence zero-sugar candy player appears in this selected set."
+      ],
+      "profiles": [],
+      "caveats": [
+        "This market map is directional only and should not be treated as validated whitespace without demand grounding."
+      ]
+    },
+    "demand_signal_report": {
+      "run_id": "decision-brief-candy-fixture",
+      "status": "success",
+      "query": "zero calories candy",
+      "category_context": "candy",
+      "source": "discovery_breadth",
+      "valid_discovery_count": 60,
+      "total_signals": 5,
+      "signals": [],
+      "caveats": [
+        "Demand signals currently use replayable discovery breadth, not search volume or conversion data."
+      ]
+    },
+    "gap_validation_report": {
+      "run_id": "decision-brief-candy-fixture",
+      "status": "partial_success",
+      "category_context": "candy",
+      "total_candidates": 4,
+      "supported_candidates": 3,
+      "tentative_candidates": 1,
+      "weak_candidates": 0,
+      "demand_signal_source": "discovery_breadth",
+      "top_candidates": [
+        {
+          "gap_id": "decision-brief-candy-fixture-premium-indulgence-missing-territory",
+          "title": "Missing territory: premium indulgence candy",
+          "candidate_space": "premium indulgence candy",
+          "target_territory": "premium_indulgence_candy",
+          "target_pricing_stance": "unspecified",
+          "whitespace_type": "missing_territory",
+          "status": "supported",
+          "supply_gap_score": 0.95,
+          "traction_score": 0.68,
+          "demand_score": 0.79,
+          "price_realism_score": 1.0,
+          "validation_score": 0.86,
+          "adjacent_asins": [
+            "B01D0WCQOC",
+            "B077Y4R8KC"
+          ],
+          "evidence": [
+            "No selected profile is currently mapped to `premium_indulgence_candy`.",
+            "Discovery-breadth demand score is `0.79`."
+          ],
+          "caveats": [
+            "This is a selected-set gap, not a full market census."
+          ]
+        }
+      ],
+      "records": [],
+      "caveats": [
+        "Gap validation currently uses discovery-breadth demand proxies and selected-set review/rating traction, not search volume or conversion data.",
+        "A supported candidate is still a directional opportunity, not a launch-ready decision."
+      ]
+    },
+    "expected": {
+      "status": "success",
+      "recommendation_level": "validate_now",
+      "top_candidate_space": "premium indulgence candy",
+      "required_next_step_fragments": [
+        "concept hypothesis",
+        "broader keyword discovery",
+        "search volume"
+      ]
+    }
+  },
+  {
+    "batch_id": "decision_brief_tentative_sugar_batch_v1",
+    "description": "Tentative sugar gap should request more research instead of acceleration.",
+    "run_id": "decision-brief-sugar-fixture",
+    "brand_profile_report": {
+      "run_id": "decision-brief-sugar-fixture",
+      "status": "success",
+      "category_context": null,
+      "total_profiles": 3,
+      "territory_counts": {
+        "premium_pantry_basics": 1
+      },
+      "pricing_counts": {
+        "premium_pantry": 1
+      },
+      "crowded_territories": [],
+      "underrepresented_spaces": [
+        "No clear health-forward sugar alternative appears in this selected set."
+      ],
+      "profiles": [],
+      "caveats": [
+        "This market map is directional only."
+      ]
+    },
+    "demand_signal_report": {
+      "run_id": "decision-brief-sugar-fixture",
+      "status": "success",
+      "query": "sugar",
+      "category_context": null,
+      "source": "discovery_breadth",
+      "valid_discovery_count": 60,
+      "total_signals": 4,
+      "signals": [],
+      "caveats": [
+        "Demand signals currently use replayable discovery breadth."
+      ]
+    },
+    "gap_validation_report": {
+      "run_id": "decision-brief-sugar-fixture",
+      "status": "success",
+      "category_context": null,
+      "total_candidates": 7,
+      "supported_candidates": 0,
+      "tentative_candidates": 5,
+      "weak_candidates": 2,
+      "demand_signal_source": "discovery_breadth",
+      "top_candidates": [
+        {
+          "gap_id": "decision-brief-sugar-fixture-health-forward-missing-territory",
+          "title": "Missing territory: health forward alternative",
+          "candidate_space": "health forward alternative",
+          "target_territory": "health_forward_alternative",
+          "target_pricing_stance": "unspecified",
+          "whitespace_type": "missing_territory",
+          "status": "tentative",
+          "supply_gap_score": 0.95,
+          "traction_score": 0.25,
+          "demand_score": 0.53,
+          "price_realism_score": 1.0,
+          "validation_score": 0.6,
+          "adjacent_asins": [],
+          "evidence": [
+            "No selected profile is currently mapped to `health_forward_alternative`."
+          ],
+          "caveats": [
+            "There is thin adjacent evidence for this territory in the current set."
+          ]
+        }
+      ],
+      "records": [],
+      "caveats": [
+        "No candidate crossed the supported threshold in this selected set."
+      ]
+    },
+    "expected": {
+      "status": "success",
+      "recommendation_level": "research_before_validation",
+      "top_candidate_space": "health forward alternative",
+      "required_next_step_fragments": [
+        "Broaden discovery",
+        "second query variant",
+        "Improve evidence quality"
+      ]
+    }
+  },
+  {
+    "batch_id": "decision_brief_no_priority_protein_bar_batch_v1",
+    "description": "Covered protein-bar market should produce a no-priority decision brief instead of inventing a gap.",
+    "run_id": "decision-brief-protein-bar-fixture",
+    "brand_profile_report": {
+      "run_id": "decision-brief-protein-bar-fixture",
+      "status": "partial_success",
+      "category_context": "protein_bar",
+      "total_profiles": 15,
+      "territory_counts": {
+        "indulgent_snack_bar": 6,
+        "functional_performance_bar": 9
+      },
+      "territory_coverage_counts": {
+        "clean_plant_protein_bar": 9,
+        "functional_performance_bar": 10,
+        "indulgent_snack_bar": 13,
+        "value_variety_protein_bar": 9,
+        "family_lifestyle_snack_bar": 11
+      },
+      "pricing_counts": {
+        "budget_anchor": 5,
+        "mid_market": 4,
+        "premium_pantry": 6
+      },
+      "crowded_territories": [
+        "indulgent_snack_bar (6)",
+        "functional_performance_bar (9)"
+      ],
+      "underrepresented_spaces": [],
+      "profiles": [],
+      "caveats": [
+        "This market map is directional only and should not be treated as validated whitespace without demand grounding."
+      ]
+    },
+    "demand_signal_report": {
+      "run_id": "decision-brief-protein-bar-fixture",
+      "status": "success",
+      "query": "vegan protein bar",
+      "category_context": "protein_bar",
+      "source": "discovery_breadth",
+      "valid_discovery_count": 60,
+      "total_signals": 5,
+      "signals": [],
+      "caveats": [
+        "Demand signals currently use replayable discovery breadth, not search volume or conversion data."
+      ]
+    },
+    "gap_validation_report": {
+      "run_id": "decision-brief-protein-bar-fixture",
+      "status": "success",
+      "category_context": "protein_bar",
+      "total_candidates": 0,
+      "supported_candidates": 0,
+      "tentative_candidates": 0,
+      "weak_candidates": 0,
+      "demand_signal_source": "discovery_breadth",
+      "top_candidates": [],
+      "records": [],
+      "caveats": [
+        "Gap validation currently uses discovery-breadth demand proxies and selected-set review/rating traction, not search volume or conversion data.",
+        "A supported candidate is still a directional opportunity, not a launch-ready decision."
+      ]
+    },
+    "expected": {
+      "status": "success",
+      "recommendation_level": "do_not_prioritize_yet",
+      "top_candidate_space": "",
+      "required_next_step_fragments": [
+        "Do not allocate concept-build resources",
+        "category coverage baseline",
+        "sharper subcategory query"
+      ]
+    }
+  }
+]

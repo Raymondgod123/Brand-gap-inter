@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DiscoveryResultRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "discovery_id",
+    "snapshot_id",
+    "source",
+    "provider",
+    "query",
+    "rank",
+    "status",
+    "title",
+    "product_url",
+    "asin",
+    "price",
+    "currency",
+    "rating",
+    "review_count",
+    "sponsored",
+    "provider_metadata",
+    "raw_payload_uri",
+    "warnings",
+    "issues"
+  ],
+  "properties": {
+    "discovery_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "query": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rank": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["valid", "invalid"]
+    },
+    "title": {
+      "type": ["string", "null"]
+    },
+    "product_url": {
+      "type": ["string", "null"]
+    },
+    "asin": {
+      "type": ["string", "null"]
+    },
+    "price": {
+      "type": ["number", "null"]
+    },
+    "currency": {
+      "type": ["string", "null"]
+    },
+    "rating": {
+      "type": ["number", "null"]
+    },
+    "review_count": {
+      "type": ["integer", "null"]
+    },
+    "sponsored": {
+      "type": ["boolean", "null"]
+    },
+    "provider_metadata": {
+      "type": "object"
+    },
+    "raw_payload_uri": {
+      "type": "string",
+      "minLength": 1
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "message", "severity"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["warning", "error"]
+          }
+        }
+      }
+    }
+  }
+}

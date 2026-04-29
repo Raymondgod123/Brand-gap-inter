@@ -1,0 +1,211 @@
+[
+  {
+    "batch_id": "brand_positioning_batch_v1",
+    "description": "Infer deterministic brand-positioning archetypes, signal strengths, and visual strategy from product-intelligence records.",
+    "run_id": "data-collection-sugar-fixture-001",
+    "records": [
+      {
+        "product_id": "amazon:B0D1L1KSMZ",
+        "asin": "B0D1L1KSMZ",
+        "title": "Amazon Saver, White Sugar, 4 Lb",
+        "brand": "Visit the Amazon Saver Store",
+        "product_url": "https://www.amazon.com/dp/B0D1L1KSMZ",
+        "price": 3.07,
+        "currency": null,
+        "rating": 4.8,
+        "review_count": 1543,
+        "availability": "In Stock",
+        "media_assets": {
+          "primary_image": "https://example.com/amazon-saver-main.jpg",
+          "gallery_images": [
+            "https://example.com/amazon-saver-gallery-1.jpg",
+            "https://example.com/amazon-saver-gallery-2.jpg",
+            "https://example.com/amazon-saver-gallery-3.jpg",
+            "https://example.com/amazon-saver-gallery-4.jpg",
+            "https://example.com/amazon-saver-gallery-5.jpg",
+            "https://example.com/amazon-saver-gallery-6.jpg"
+          ],
+          "promotional_images": [
+            "https://example.com/amazon-saver-promo-1.jpg",
+            "https://example.com/amazon-saver-promo-2.jpg"
+          ],
+          "videos": [
+            {
+              "title": "Great Price with Free Delivery",
+              "link": "https://example.com/amazon-saver-video.m3u8",
+              "thumbnail": "https://example.com/amazon-saver-video.jpg",
+              "duration": "0:45"
+            }
+          ]
+        },
+        "promotional_content": [
+          {
+            "position": 1,
+            "title": "Amazon Saver Affordable staples without the frills",
+            "image": "https://example.com/amazon-saver-promo-1.jpg"
+          },
+          {
+            "position": 2,
+            "title": "Shop smarter with Amazon Saver",
+            "image": "https://example.com/amazon-saver-promo-2.jpg"
+          }
+        ],
+        "description_bullets": [
+          "One 4 pound bag of white granulated sugar",
+          "Gluten free",
+          "Made in USA",
+          "With Amazon Saver, you'll find affordable staples without the frills."
+        ],
+        "discovery_rank": 1,
+        "sponsored": true,
+        "source_snapshots": {
+          "collection_run_id": "data-collection-sugar-fixture-001"
+        },
+        "field_provenance": {},
+        "warnings": [
+          "detail: currency missing from product detail response"
+        ],
+        "issues": []
+      },
+      {
+        "product_id": "amazon:B0FZXW7LVY",
+        "asin": "B0FZXW7LVY",
+        "title": "Sweetmo Sugar Packets Variety Pack - Cane Sugar with Wooden Stirrers for Coffee, Tea, Office Breakrooms, Home & Airbnb",
+        "brand": "Brand: Sweetmo",
+        "product_url": "https://www.amazon.com/dp/B0FZXW7LVY",
+        "price": 22.49,
+        "currency": null,
+        "rating": 4.8,
+        "review_count": 60,
+        "availability": "In Stock",
+        "media_assets": {
+          "primary_image": "https://example.com/sweetmo-main.jpg",
+          "gallery_images": [
+            "https://example.com/sweetmo-gallery-1.jpg",
+            "https://example.com/sweetmo-gallery-2.jpg",
+            "https://example.com/sweetmo-gallery-3.jpg",
+            "https://example.com/sweetmo-gallery-4.jpg",
+            "https://example.com/sweetmo-gallery-5.jpg",
+            "https://example.com/sweetmo-gallery-6.jpg",
+            "https://example.com/sweetmo-gallery-7.jpg",
+            "https://example.com/sweetmo-gallery-8.jpg"
+          ],
+          "promotional_images": [],
+          "videos": [
+            {
+              "title": "Honest Review of Sugar Packets",
+              "link": "https://example.com/sweetmo-video.m3u8",
+              "thumbnail": "https://example.com/sweetmo-video.jpg",
+              "duration": "1:45"
+            }
+          ]
+        },
+        "promotional_content": [],
+        "description_bullets": [
+          "Complete sweetener variety pack for every taste preference.",
+          "Convenient 300-count value pack for home, office, coffee bar, or breakroom.",
+          "Wooden stirrers included.",
+          "Perfect for coffee and tea stations.",
+          "Individually packaged for freshness.",
+          "Great for on-the-go use."
+        ],
+        "discovery_rank": 2,
+        "sponsored": true,
+        "source_snapshots": {
+          "collection_run_id": "data-collection-sugar-fixture-001"
+        },
+        "field_provenance": {},
+        "warnings": [
+          "detail: currency missing from product detail response",
+          "detail: promotional content missing from product detail response"
+        ],
+        "issues": []
+      },
+      {
+        "product_id": "amazon:B09RPPBG15",
+        "asin": "B09RPPBG15",
+        "title": "Domino Granulated Sugar, 20 oz Canister, Pack of 3",
+        "brand": "Visit the Domino Store",
+        "product_url": "https://www.amazon.com/dp/B09RPPBG15",
+        "price": 22.99,
+        "currency": null,
+        "rating": 4.5,
+        "review_count": 917,
+        "availability": "In Stock",
+        "media_assets": {
+          "primary_image": "https://example.com/domino-main.jpg",
+          "gallery_images": [
+            "https://example.com/domino-gallery-1.jpg",
+            "https://example.com/domino-gallery-2.jpg",
+            "https://example.com/domino-gallery-3.jpg",
+            "https://example.com/domino-gallery-4.jpg",
+            "https://example.com/domino-gallery-5.jpg",
+            "https://example.com/domino-gallery-6.jpg"
+          ],
+          "promotional_images": [],
+          "videos": []
+        },
+        "promotional_content": [],
+        "description_bullets": [
+          "Premium granulated pure cane sugar made with non-GMO pure cane sugar.",
+          "Convenient and easy-to-use canister keeps sugar fresh.",
+          "Pantry baking essential for homemade recipes.",
+          "Ideal for coffee, tea, and cocktails.",
+          "Pantry basics for everyday use."
+        ],
+        "discovery_rank": 3,
+        "sponsored": true,
+        "source_snapshots": {
+          "collection_run_id": "data-collection-sugar-fixture-001"
+        },
+        "field_provenance": {},
+        "warnings": [
+          "detail: currency missing from product detail response",
+          "detail: promotional content missing from product detail response"
+        ],
+        "issues": []
+      }
+    ],
+    "expected": {
+      "status": "partial_success",
+      "brands": {
+        "B0D1L1KSMZ": "Amazon Saver",
+        "B0FZXW7LVY": "Sweetmo",
+        "B09RPPBG15": "Domino"
+      },
+      "archetypes": {
+        "B0D1L1KSMZ": "value_staple",
+        "B0FZXW7LVY": "convenience_bundle",
+        "B09RPPBG15": "pantry_staple"
+      },
+      "signals": {
+        "B0D1L1KSMZ": {
+          "price_tier": "budget",
+          "value_signal": "explicit",
+          "health_signal": "moderate",
+          "convenience_signal": "light",
+          "visual_strategy": "packaging_promo_video"
+        },
+        "B0FZXW7LVY": {
+          "price_tier": "mid",
+          "value_signal": "moderate",
+          "health_signal": "light",
+          "convenience_signal": "explicit",
+          "visual_strategy": "packaging_plus_video"
+        },
+        "B09RPPBG15": {
+          "price_tier": "premium",
+          "value_signal": "light",
+          "health_signal": "moderate",
+          "convenience_signal": "explicit",
+          "visual_strategy": "packaging_gallery_only"
+        }
+      },
+      "market_theme_fragments": [
+        "value_staple",
+        "convenience_bundle",
+        "pantry_staple"
+      ]
+    }
+  }
+]

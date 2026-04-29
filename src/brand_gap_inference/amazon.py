@@ -7,6 +7,7 @@ from html.parser import HTMLParser
 import re
 from urllib.parse import urlparse
 
+from .browser_capture import BrowserCaptureRunner, NodePlaywrightAmazonCaptureRunner
 from .connectors import RawSourceRecord
 from .http_client import HttpFetcher, UrllibHttpFetcher
 
@@ -66,6 +67,7 @@ class AmazonProductConnector:
 
         payload = {
             "asin": asin,
+            "acquisition_method": "http",
             "original_url": self.product_url,
             "canonical_url": canonical_url,
             "final_url": response.final_url,
@@ -75,6 +77,51 @@ class AmazonProductConnector:
             "content_sha256": hashlib.sha256(response.body.encode("utf-8")).hexdigest(),
             "headers": response.headers,
             "html": response.body,
+        }
+
+        return [
+            RawSourceRecord(
+                record_id=asin,
+                source=self.source_name,
+                snapshot_id=snapshot_id,
+                captured_at=captured_at,
+                payload=payload,
+                cursor=canonical_url,
+            )
+        ]
+
+
+@dataclass(frozen=True)
+class AmazonBrowserProductConnector:
+    product_url: str
+    capture_runner: BrowserCaptureRunner = field(default_factory=NodePlaywrightAmazonCaptureRunner)
+    captured_at: str | None = None
+    source_name: str = "amazon"
+
+    def fetch_snapshot(self) -> list[RawSourceRecord]:
+        asin = extract_amazon_asin(self.product_url)
+        if asin is None:
+            raise ValueError("unable to extract a valid ASIN from the provided Amazon URL")
+
+        captured_at = self.captured_at or datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+        canonical_url = canonicalize_amazon_product_url(self.product_url)
+        capture = self.capture_runner.capture(canonical_url, timeout_seconds=45)
+        snapshot_id = build_snapshot_id(self.source_name, asin, captured_at)
+
+        payload = {
+            "asin": asin,
+            "acquisition_method": "browser_playwright",
+            "browser_engine": "chromium",
+            "original_url": self.product_url,
+            "canonical_url": canonical_url,
+            "final_url": capture.final_url,
+            "status_code": capture.status_code,
+            "page_title": capture.page_title,
+            "is_robot_check": capture.is_robot_check,
+            "content_sha256": hashlib.sha256(capture.html.encode("utf-8")).hexdigest(),
+            "headers": {},
+            "html": capture.html,
+            "capture_diagnostics": capture.capture_diagnostics,
         }
 
         return [

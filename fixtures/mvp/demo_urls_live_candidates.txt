@@ -1,0 +1,13 @@
+# Candidate URLs discovered from live page adjacency (2026-04-24).
+# Ordered to try the original first, then nearby ASINs.
+
+https://www.amazon.com/dp/B098H7XWQ6
+https://www.amazon.com/dp/B0FVB2B28J
+https://www.amazon.com/dp/B000EA2D9C
+https://www.amazon.com/dp/B08H1S4TPN
+https://www.amazon.com/dp/B018FMJVYA
+https://www.amazon.com/dp/B014RVNVKS
+https://www.amazon.com/dp/B01GCU3RYC
+https://www.amazon.com/dp/B0CF6L6PRT
+https://www.amazon.com/dp/B01LDNBAC4
+https://www.amazon.com/dp/B00CF2B04Q

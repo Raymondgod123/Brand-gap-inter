@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DemandSignalRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "signal_id",
+    "run_id",
+    "query",
+    "category_context",
+    "target_territory",
+    "source",
+    "match_count",
+    "valid_discovery_count",
+    "sponsored_match_count",
+    "top_rank",
+    "matched_asins",
+    "matched_titles",
+    "demand_score",
+    "evidence",
+    "warnings"
+  ],
+  "properties": {
+    "signal_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "query": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category_context": {
+      "type": ["string", "null"]
+    },
+    "target_territory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "match_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "valid_discovery_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "sponsored_match_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "top_rank": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "matched_asins": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "matched_titles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "demand_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from functools import lru_cache
 from html import unescape
 import re
 from urllib.parse import unquote, urlparse
@@ -42,6 +43,28 @@ _PRICE_BLOCK_PATTERNS = (
         re.IGNORECASE | re.DOTALL,
     ),
 )
+_PRIMARY_PRICE_CONTAINER_IDS = (
+    "corePriceDisplay_desktop_feature_div",
+    "corePrice_feature_div",
+    "priceToPay",
+    "priceToPay_feature_div",
+    "apex_desktop",
+    "buybox",
+    "desktop_buybox",
+    "newAccordionRow_0",
+)
+_PRIMARY_OFFSCREEN_PRICE_RE = re.compile(
+    r'class=(?:\\&quot;|["\'])a-offscreen(?:\\&quot;|["\'])[^>]*>\s*([^<]+)\s*<',
+    re.IGNORECASE | re.DOTALL,
+)
+_PRIMARY_PRICE_WHOLE_RE = re.compile(
+    r'class=(?:\\&quot;|["\'])a-price-whole(?:\\&quot;|["\'])[^>]*>\s*([\d.,]+)\s*<',
+    re.IGNORECASE | re.DOTALL,
+)
+_PRIMARY_PRICE_FRACTION_RE = re.compile(
+    r'class=(?:\\&quot;|["\'])a-price-fraction(?:\\&quot;|["\'])[^>]*>\s*(\d{1,2})\s*<',
+    re.IGNORECASE | re.DOTALL,
+)
 _WEIGHT_PATTERNS = (
     re.compile(r'(\d+(?:\.\d+)?)\s*(?:fl\.?\s*)?(oz|ounce|ounces)\b', re.IGNORECASE),
     re.compile(r'(\d+(?:\.\d+)?)\s*(lb|lbs|pound|pounds)\b', re.IGNORECASE),
@@ -57,6 +80,10 @@ _COUNT_PATTERNS = (
 _PACK_RE = re.compile(r'pack of (\d+)', re.IGNORECASE)
 _HTML_TAG_RE = re.compile(r"<[^>]+>")
 _MULTISPACE_RE = re.compile(r"\s+")
+_STRUCTURED_PRODUCT_TITLE_RE = re.compile(
+    r'(?:&quot;|\\&quot;|")productTitle(?:&quot;|\\&quot;|")\s*:\s*(?:&quot;|\\&quot;|")(.{0,220}?)(?:&quot;|\\&quot;|")',
+    re.IGNORECASE | re.DOTALL,
+)
 _AVAILABILITY_RULES = (
     ("currently unavailable", "out_of_stock"),
     ("temporarily out of stock", "out_of_stock"),
@@ -145,10 +172,11 @@ class AmazonListingNormalizer:
         price, price_provenance, price_reason = _extract_price(html, asin if isinstance(asin, str) else None)
         field_provenance["price"] = price_provenance
         if price is None:
+            missing_price_error = _describe_missing_price_error(html, price_provenance)
             return ExtractionOutcome(
                 None,
                 warnings,
-                ["missing product price"],
+                [missing_price_error],
                 field_provenance=field_provenance,
                 low_confidence_reasons=low_confidence_reasons,
             )
@@ -320,20 +348,39 @@ def _infer_brand_from_title(product_title: str) -> str | None:
 
 
 def _extract_price(html: str, asin: str | None) -> tuple[float | None, dict[str, object], dict[str, str] | None]:
-    # Prefer visible/main price blocks first. Unscoped structured "priceAmount" can appear for
-    # recommended products and other widgets on the page.
+    lowered_html = html.lower()
+    # Prefer primary price containers first. This keeps us scoped to the listing and avoids
+    # grabbing recommended/widget prices from unrelated sections.
+    container_price, container_detail = _extract_price_from_primary_containers(html)
+    if container_price is not None:
+        return (
+            container_price,
+            _provenance(
+                "html",
+                container_detail,
+                "price_primary_container",
+            ),
+            None,
+        )
+
+    # Backward-compatible fallback for known block patterns.
     for index, pattern in enumerate(_PRICE_BLOCK_PATTERNS):
-        match = pattern.search(html)
-        if match:
-            return (
-                float(match.group(1).replace(",", "")),
-                _provenance(
-                    "html",
-                    f"price block regex match block pattern {index}",
-                    "price_block_primary",
-                ),
-                None,
-            )
+        for match in pattern.finditer(html):
+            if _is_inside_block(lowered_html, match.start(), "script"):
+                continue
+            if _is_inside_block(lowered_html, match.start(), "style"):
+                continue
+            parsed = _parse_price_amount(match.group(1))
+            if parsed is not None:
+                return (
+                    parsed,
+                    _provenance(
+                        "html",
+                        f"price block regex match block pattern {index}",
+                        "price_block_primary_legacy",
+                    ),
+                    None,
+                )
 
     # If we don't have a block price, use structured patterns but scope them to the current ASIN.
     structured_matches: list[tuple[int, int, str]] = []
@@ -372,8 +419,11 @@ def _extract_price(html: str, asin: str | None) -> tuple[float | None, dict[str,
         # Exception: for small, fixture-like HTML bodies that contain exactly one structured price match,
         # we accept the singleton price to keep deterministic tests stable. Real Amazon pages usually contain
         # many structured priceAmount entries (widgets / recs / ads), so this fallback won't trigger there.
+        #
+        # Safety override: if the page already signals missing primary offer state (for example buying-options-only),
+        # we must fail clearly instead of accepting any unscoped structured price.
         unique_values = sorted({value for _, _, value in structured_matches})
-        if len(unique_values) == 1 and len(html) < 60_000:
+        if len(unique_values) == 1 and len(html) < 60_000 and not _has_missing_primary_offer_signal(lowered_html):
             return (
                 float(unique_values[0]),
                 _provenance(
@@ -384,7 +434,11 @@ def _extract_price(html: str, asin: str | None) -> tuple[float | None, dict[str,
                 None,
             )
 
-        return None, _provenance("unknown", f"structured prices found but none scoped to asin={asin}", "price_missing"), None
+        candidate_summary = _summarize_structured_price_candidates(html, structured_matches)
+        detail = f"structured prices found but none scoped to asin={asin}"
+        if candidate_summary:
+            detail = f"{detail}; candidates={candidate_summary}"
+        return None, _provenance("unknown", detail, "price_missing"), None
 
     # No ASIN available: fall back to first structured match, but mark it low-confidence.
     index, _, value = structured_matches[0]
@@ -397,6 +451,151 @@ def _extract_price(html: str, asin: str | None) -> tuple[float | None, dict[str,
             "priceAmount extracted without ASIN scoping; may be from a non-primary widget",
         ),
     )
+
+
+def _extract_price_from_primary_containers(html: str) -> tuple[float | None, str]:
+    lowered_html = html.lower()
+    for container_id in _PRIMARY_PRICE_CONTAINER_IDS:
+        container_tag_pattern = _compile_primary_container_tag_pattern(container_id)
+        for tag_match in container_tag_pattern.finditer(html):
+            # Some Amazon scripts include container id strings inside update metadata or
+            # encoded widget payloads. Those are not safe primary-price sources.
+            if _is_inside_block(lowered_html, tag_match.start(), "script"):
+                continue
+            if _is_inside_block(lowered_html, tag_match.start(), "style"):
+                continue
+            window = _extract_container_window(html, lowered_html, tag_match)
+            parsed = _extract_price_from_container_window(window)
+            if parsed is not None:
+                return parsed, f"{container_id} ({tag_match.group('tag')})"
+    return None, ""
+
+
+@lru_cache(maxsize=64)
+def _compile_primary_container_tag_pattern(container_id: str) -> re.Pattern[str]:
+    escaped = re.escape(container_id)
+    # Match actual HTML tags only; do not match JSON strings like:
+    # "divToUpdate":"corePriceDisplay_desktop_feature_div"
+    return re.compile(
+        rf"<(?P<tag>[a-z0-9]+)\b[^>]*\bid\s*=\s*(?:\"{escaped}\"|'{escaped}'|{escaped})[^>]*>",
+        re.IGNORECASE,
+    )
+
+
+def _is_inside_block(lowered_html: str, index: int, tag: str) -> bool:
+    open_index = lowered_html.rfind(f"<{tag}", 0, index)
+    if open_index < 0:
+        return False
+    close_index = lowered_html.rfind(f"</{tag}", 0, index)
+    return close_index < open_index
+
+
+def _extract_container_window(html: str, lowered_html: str, tag_match: re.Match[str], max_size: int = 9000) -> str:
+    start = tag_match.start()
+    end = min(len(html), start + max_size)
+    close_tag = f"</{tag_match.group('tag').lower()}>"
+    close_index = lowered_html.find(close_tag, tag_match.end(), end)
+    if close_index >= 0:
+        end = min(len(html), close_index + len(close_tag))
+    return html[start:end]
+
+
+def _extract_price_from_container_window(window: str) -> float | None:
+    offscreen_match = _PRIMARY_OFFSCREEN_PRICE_RE.search(window)
+    if offscreen_match:
+        parsed = _parse_price_amount(offscreen_match.group(1))
+        if parsed is not None:
+            return parsed
+
+    whole_match = _PRIMARY_PRICE_WHOLE_RE.search(window)
+    if whole_match:
+        whole_text = whole_match.group(1)
+        fraction_match = _PRIMARY_PRICE_FRACTION_RE.search(window[whole_match.end(): whole_match.end() + 220])
+        fraction_text = fraction_match.group(1) if fraction_match else None
+        parsed = _parse_whole_fraction_price(whole_text, fraction_text)
+        if parsed is not None:
+            return parsed
+    return None
+
+
+def _parse_whole_fraction_price(whole_text: str, fraction_text: str | None) -> float | None:
+    whole_digits = re.sub(r"[^0-9]", "", whole_text)
+    if not whole_digits:
+        return None
+    if fraction_text:
+        fraction_digits = re.sub(r"[^0-9]", "", fraction_text)[:2].ljust(2, "0")
+        return float(f"{int(whole_digits)}.{fraction_digits}")
+    return float(int(whole_digits))
+
+
+def _parse_price_amount(text: str) -> float | None:
+    cleaned = re.sub(r"[^0-9,.\-]", "", text).strip()
+    if not cleaned:
+        return None
+
+    # Normalize decimal/thousand separators.
+    if "," in cleaned and "." in cleaned:
+        last_comma = cleaned.rfind(",")
+        last_dot = cleaned.rfind(".")
+        decimal_index = max(last_comma, last_dot)
+        integer_part = re.sub(r"[^0-9\-]", "", cleaned[:decimal_index])
+        decimal_part = re.sub(r"[^0-9]", "", cleaned[decimal_index + 1:])[:2]
+        if not integer_part:
+            return None
+        if decimal_part:
+            return float(f"{integer_part}.{decimal_part}")
+        return float(integer_part)
+
+    if "," in cleaned:
+        if re.search(r",\d{2}$", cleaned):
+            normalized = cleaned.replace(".", "").replace(",", ".")
+            return float(normalized)
+        return float(cleaned.replace(",", ""))
+
+    if cleaned.count(".") > 1:
+        if re.search(r"\.\d{2}$", cleaned):
+            last_dot = cleaned.rfind(".")
+            integer_part = cleaned[:last_dot].replace(".", "")
+            decimal_part = cleaned[last_dot + 1:]
+            return float(f"{integer_part}.{decimal_part}")
+        return float(cleaned.replace(".", ""))
+
+    return float(cleaned)
+
+
+def _describe_missing_price_error(html: str, price_provenance: dict[str, object]) -> str:
+    lowered = html.lower()
+    detail = str(price_provenance.get("source_detail", ""))
+    if _has_missing_primary_offer_signal(lowered):
+        return f"missing product price: no featured offers available on page; buying-options only. {detail}".strip()
+    if "currently unavailable" in lowered:
+        return f"missing product price: product is currently unavailable. {detail}".strip()
+    return f"missing product price. {detail}".strip()
+
+
+def _has_missing_primary_offer_signal(lowered_html: str) -> bool:
+    return "no featured offers available" in lowered_html or "see all buying options" in lowered_html
+
+
+def _summarize_structured_price_candidates(
+    html: str,
+    structured_matches: list[tuple[int, int, str]],
+    limit: int = 3,
+) -> str:
+    candidates: list[str] = []
+    seen: set[str] = set()
+    for _, start, value in structured_matches:
+        window = html[max(0, start - 250): min(len(html), start + 450)]
+        title_match = _STRUCTURED_PRODUCT_TITLE_RE.search(window)
+        title = _clean_text(title_match.group(1)) if title_match else ""
+        summary = f"{value}:{title[:80]}" if title else value
+        if summary in seen:
+            continue
+        seen.add(summary)
+        candidates.append(summary)
+        if len(candidates) >= limit:
+            break
+    return " | ".join(candidates)
 
 
 def _extract_category_path(html: str) -> list[str]:

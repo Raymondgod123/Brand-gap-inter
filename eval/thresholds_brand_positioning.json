@@ -1,0 +1,22 @@
+{
+  "metrics": {
+    "brand_positioning_status_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_positioning_brand_normalization_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_positioning_archetype_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_positioning_signal_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_positioning_market_theme_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_positioning_repeat_run_stability": {
+      "minimum": 1.0
+    }
+  }
+}

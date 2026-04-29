@@ -1,0 +1,7 @@
+# Audited snapshot ids for predictable MVP replay demos (success path).
+# Use with:
+#   python -m brand_gap_inference.mvp_run --snapshot-id "<id>" --source amazon
+# Or fallback mode:
+#   python -m brand_gap_inference.mvp_run --snapshot-ids-file fixtures/mvp/demo_snapshot_ids.txt --source amazon
+
+amazon-CLEAN00001-2026-04-24T00-00-00Z

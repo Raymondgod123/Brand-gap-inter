@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidenceWorkbenchManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "status",
+    "generated_at",
+    "collection_dir",
+    "output_dir",
+    "entrypoint",
+    "review_summary",
+    "dashboard_summary",
+    "evidence_quality_summary",
+    "market_structure_summary",
+    "product_matrix_summary",
+    "source_artifacts",
+    "artifacts",
+    "caveats"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "generated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "collection_dir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "output_dir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entrypoint": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_count",
+        "products_with_primary_image",
+        "products_with_gallery_images",
+        "products_with_promotional_content",
+        "products_missing_primary_image",
+        "products_missing_promotional_content",
+        "products_with_warnings",
+        "total_warning_count",
+        "warning_breakdown",
+        "territory_options",
+        "decision_recommendation",
+        "gap_candidate_count",
+        "supported_gap_candidate_count",
+        "primary_territory_count",
+        "coverage_territory_count"
+      ],
+      "properties": {
+        "product_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "products_with_primary_image": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "products_with_gallery_images": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "products_with_promotional_content": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "products_missing_primary_image": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "products_missing_promotional_content": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "products_with_warnings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total_warning_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warning_breakdown": {
+          "type": "object"
+        },
+        "territory_options": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "decision_recommendation": {
+          "type": "string"
+        },
+        "gap_candidate_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "supported_gap_candidate_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "primary_territory_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_territory_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "dashboard_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_conclusion",
+        "review_readiness",
+        "strong_evidence",
+        "weak_evidence",
+        "pm_next_step",
+        "recommendation_level",
+        "category_context",
+        "headline"
+      ],
+      "properties": {
+        "run_conclusion": {
+          "type": "string"
+        },
+        "review_readiness": {
+          "type": "string"
+        },
+        "strong_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "weak_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pm_next_step": {
+          "type": "string"
+        },
+        "recommendation_level": {
+          "type": "string"
+        },
+        "category_context": {
+          "type": "string"
+        },
+        "headline": {
+          "type": "string"
+        }
+      }
+    },
+    "evidence_quality_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_count",
+        "primary_image_coverage",
+        "gallery_image_coverage",
+        "promo_content_coverage",
+        "products_with_warnings",
+        "total_warning_count",
+        "top_warning_types",
+        "quality_score",
+        "quality_label",
+        "missing_evidence_flags"
+      ],
+      "properties": {
+        "product_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "primary_image_coverage": {
+          "type": "number"
+        },
+        "gallery_image_coverage": {
+          "type": "number"
+        },
+        "promo_content_coverage": {
+          "type": "number"
+        },
+        "products_with_warnings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total_warning_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "top_warning_types": {
+          "type": "object"
+        },
+        "quality_score": {
+          "type": "number"
+        },
+        "quality_label": {
+          "type": "string"
+        },
+        "missing_evidence_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "market_structure_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_territory_count",
+        "coverage_territory_count",
+        "primary_territories",
+        "coverage_territories",
+        "crowded_territories",
+        "underrepresented_spaces",
+        "coverage_delta",
+        "coverage_comparison"
+      ],
+      "properties": {
+        "primary_territory_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_territory_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "primary_territories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "coverage_territories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "crowded_territories": {
+          "type": "object"
+        },
+        "underrepresented_spaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "coverage_delta": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_comparison": {
+          "type": "object"
+        }
+      }
+    },
+    "product_matrix_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_rows",
+        "rows"
+      ],
+      "properties": {
+        "total_rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "source_artifacts": {
+      "type": "object"
+    },
+    "artifacts": {
+      "type": "object"
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

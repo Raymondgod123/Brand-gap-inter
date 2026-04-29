@@ -1,0 +1,42 @@
+name: analysis-stack-quality-gates
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-analysis-stack:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -p "test_*.py"
+      - name: Run eval gate
+        run: python -m brand_gap_inference.eval_runner --fixtures-dir eval/fixtures/phase1 --thresholds eval/thresholds.json
+      - name: Run discovery quality eval
+        run: python -m brand_gap_inference.discovery_eval --cases eval/fixtures/discovery_golden/batches.json --thresholds eval/thresholds_discovery.json
+      - name: Run taxonomy quality eval
+        run: python -m brand_gap_inference.taxonomy_eval --cases eval/fixtures/taxonomy_golden/cases.json --thresholds eval/taxonomy_thresholds.json
+      - name: Run normalization quality eval
+        run: python -m brand_gap_inference.normalization_eval --cases eval/fixtures/normalization_golden/batches.json --thresholds eval/normalization_thresholds.json
+      - name: Run product intelligence quality eval
+        run: python -m brand_gap_inference.product_intelligence_eval --cases eval/fixtures/product_intelligence_golden/batches.json --thresholds eval/thresholds_product_intelligence.json
+      - name: Run brand positioning quality eval
+        run: python -m brand_gap_inference.brand_analysis_eval --cases eval/fixtures/brand_positioning_golden/batches.json --thresholds eval/thresholds_brand_positioning.json
+      - name: Run brand profile quality eval
+        run: python -m brand_gap_inference.brand_profile_eval --cases eval/fixtures/brand_profile_golden/batches.json --thresholds eval/thresholds_brand_profile.json
+      - name: Run demand signal quality eval
+        run: python -m brand_gap_inference.demand_signal_eval --cases eval/fixtures/demand_signal_golden/batches.json --thresholds eval/thresholds_demand_signal.json
+      - name: Run gap validation quality eval
+        run: python -m brand_gap_inference.gap_validation_eval --cases eval/fixtures/gap_validation_golden/batches.json --thresholds eval/thresholds_gap_validation.json
+      - name: Run decision brief quality eval
+        run: python -m brand_gap_inference.decision_brief_eval --cases eval/fixtures/decision_brief_golden/batches.json --thresholds eval/thresholds_decision_brief.json
+      - name: Run deep inference quality eval
+        run: python -m brand_gap_inference.deep_inference_eval --cases eval/fixtures/deep_inference_golden/batches.json --thresholds eval/thresholds_deep_inference.json

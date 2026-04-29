@@ -231,6 +231,7 @@ def _render_report_markdown(
 ) -> str:
     warnings = list(normalization_record.get("warnings") or [])
     low_confidence_reasons = list(normalization_record.get("low_confidence_reasons") or [])
+    field_provenance = dict(normalization_record.get("field_provenance") or {})
 
     taxonomy_axes = taxonomy_assignment.get("axes") or {}
     adjacent_categories = taxonomy_assignment.get("adjacent_categories") or []
@@ -284,10 +285,22 @@ def _render_report_markdown(
     lines.append("- This output is decision support, not an autonomous truth engine.")
     lines.append("")
 
+    lines.append("## Provenance Snapshot")
+    key_fields = ["brand_name", "price", "pack_count", "unit_measure", "category_path", "availability"]
+    for field_name in key_fields:
+        provenance = field_provenance.get(field_name)
+        if not isinstance(provenance, dict):
+            lines.append(f"- {field_name}: source unavailable")
+            continue
+        source_type = provenance.get("source_type", "unknown")
+        rule = provenance.get("rule", "unknown")
+        detail = provenance.get("source_detail", "")
+        lines.append(f"- {field_name}: source_type=`{source_type}`, rule=`{rule}`, detail={detail}")
+    lines.append("")
+
     lines.append("## Evidence")
     for item in opportunity.get("evidence", []):
         lines.append(f"- [{item.get('kind')}] {item.get('summary')} (confidence={item.get('confidence')})")
     lines.append("")
 
     return "\n".join(lines)
-

@@ -1,0 +1,125 @@
+[
+  {
+    "batch_id": "serpapi_amazon_discovery_batch_v1",
+    "description": "SERP API discovery replay fixture covering valid candidates, inferred ASIN, warnings, and invalid records.",
+      "manifest": {
+      "snapshot_id": "amazon_api_discovery-serpapi-monk-fruit-sweetener-cf05cf722d-2026-04-24T00-00-00Z",
+      "source": "amazon_api_discovery",
+      "captured_at": "2026-04-24T00:00:00Z",
+      "storage_uri": "fixtures://discovery/serpapi_amazon_discovery"
+    },
+    "records": [
+      {
+        "record_id": "serpapi-monk-fruit-sweetener-cf05cf722d",
+        "source": "amazon_api_discovery",
+        "snapshot_id": "amazon_api_discovery-serpapi-monk-fruit-sweetener-cf05cf722d-2026-04-24T00-00-00Z",
+        "captured_at": "2026-04-24T00:00:00Z",
+        "cursor": "monk fruit sweetener",
+        "payload": {
+          "provider": "serpapi",
+          "query": "monk fruit sweetener",
+          "requested_at": "2026-04-24T00:00:00Z",
+          "provider_request_metadata": {
+            "endpoint": "https://serpapi.com/search.json",
+            "engine": "amazon",
+            "amazon_domain": "amazon.com",
+            "language": "en_US"
+          },
+          "result_count": 5,
+          "provider_response": {
+            "search_metadata": {
+              "id": "fixture-serpapi-search-001",
+              "status": "Success"
+            },
+            "organic_results": [
+              {
+                "position": 1,
+                "asin": "B00CF2B04Q",
+                "title": "Lakanto Classic Monk Fruit Sweetener with Erythritol",
+                "link_clean": "https://www.amazon.com/dp/B00CF2B04Q",
+                "rating": 4.6,
+                "reviews": 41234,
+                "extracted_price": 9.99,
+                "currency": "USD",
+                "sponsored": false
+              },
+              {
+                "position": 2,
+                "title": "Transparency Foods Liquid Monk Fruit Sweetener",
+                "link_clean": "https://www.amazon.com/Transparency-Foods-Liquid-Monk-Fruit/dp/B0CF6L6PRT/ref=sr_1_2",
+                "rating": 4.2,
+                "reviews": 210,
+                "extracted_price": 18.49,
+                "currency": "USD",
+                "sponsored": true
+              },
+              {
+                "position": 3,
+                "asin": "B014RVNVKS",
+                "title": "Pyure Organic Stevia Extract Powder",
+                "link_clean": "https://www.amazon.com/dp/B014RVNVKS",
+                "sponsored": false
+              },
+              {
+                "position": 4,
+                "link_clean": "https://www.amazon.com/dp/B01LDNBAC4",
+                "rating": 4.5,
+                "reviews": 1000,
+                "extracted_price": 23.94,
+                "currency": "USD",
+                "sponsored": false
+              },
+              {
+                "position": 5,
+                "title": "Off platform result",
+                "link_clean": "https://example.com/not-amazon",
+                "sponsored": false
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "expected": {
+      "run_status": "partial_success",
+      "summary": {
+        "total_candidates": 5,
+        "valid_candidates": 3,
+        "invalid_candidates": 2,
+        "warning_records": 4
+      },
+      "required_valid_fields": ["title", "product_url"],
+      "record_expectations": {
+        "amazon_api_discovery-serpapi-monk-fruit-sweetener-cf05cf722d-2026-04-24T00-00-00Z-rank-01-B00CF2B04Q": {
+          "status": "valid"
+        },
+        "amazon_api_discovery-serpapi-monk-fruit-sweetener-cf05cf722d-2026-04-24T00-00-00Z-rank-02-B0CF6L6PRT": {
+          "status": "valid",
+          "required_warning_substrings": [
+            "asin inferred from amazon product_url"
+          ]
+        },
+        "amazon_api_discovery-serpapi-monk-fruit-sweetener-cf05cf722d-2026-04-24T00-00-00Z-rank-03-B014RVNVKS": {
+          "status": "valid",
+          "required_warning_substrings": [
+            "price missing from provider response",
+            "rating missing from provider response",
+            "review_count missing from provider response"
+          ]
+        },
+        "amazon_api_discovery-serpapi-monk-fruit-sweetener-cf05cf722d-2026-04-24T00-00-00Z-rank-04-B01LDNBAC4": {
+          "status": "invalid",
+          "required_issue_substrings": [
+            "missing title"
+          ]
+        },
+        "amazon_api_discovery-serpapi-monk-fruit-sweetener-cf05cf722d-2026-04-24T00-00-00Z-rank-05-amazon-api-discovery-serpapi-mon": {
+          "status": "invalid",
+          "required_issue_substrings": [
+            "missing a valid Amazon product_url"
+          ]
+        }
+      }
+    }
+  }
+]

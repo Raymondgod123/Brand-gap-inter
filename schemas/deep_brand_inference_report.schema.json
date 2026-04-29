@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeepBrandInferenceReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "model",
+    "status",
+    "executive_summary",
+    "market_overview",
+    "brand_profiles",
+    "whitespace_opportunities",
+    "risks",
+    "evidence_notes",
+    "caveats"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "executive_summary": {
+      "type": "string"
+    },
+    "market_overview": {
+      "type": "string"
+    },
+    "brand_profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "asin",
+          "brand_name",
+          "positioning_summary",
+          "target_audience",
+          "pricing_posture",
+          "claim_themes",
+          "visual_identity",
+          "confidence",
+          "evidence_refs"
+        ],
+        "properties": {
+          "asin": {
+            "type": "string"
+          },
+          "brand_name": {
+            "type": "string"
+          },
+          "positioning_summary": {
+            "type": "string"
+          },
+          "target_audience": {
+            "type": "string"
+          },
+          "pricing_posture": {
+            "type": "string"
+          },
+          "claim_themes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "visual_identity": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "whitespace_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

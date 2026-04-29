@@ -1,0 +1,19 @@
+{
+  "metrics": {
+    "decision_brief_status_accuracy": {
+      "minimum": 1.0
+    },
+    "decision_brief_recommendation_accuracy": {
+      "minimum": 1.0
+    },
+    "decision_brief_top_space_accuracy": {
+      "minimum": 1.0
+    },
+    "decision_brief_actionability_accuracy": {
+      "minimum": 1.0
+    },
+    "decision_brief_repeat_run_stability": {
+      "minimum": 1.0
+    }
+  }
+}

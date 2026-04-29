@@ -1,0 +1,180 @@
+[
+  {
+    "batch_id": "demand_signal_batch_v1",
+    "description": "Score replayable discovery breadth against candy territory demand terms.",
+    "run_id": "collection-candy-demand-fixture",
+    "discovery_records": [
+      {
+        "discovery_id": "disc-1",
+        "snapshot_id": "snapshot-1",
+        "source": "amazon_api_discovery",
+        "provider": "serpapi",
+        "query": "zero calories candy",
+        "rank": 1,
+        "status": "valid",
+        "title": "Premium Sugar Free Chocolate Caramel Mint Candy",
+        "product_url": "https://www.amazon.com/dp/B0PREMIUM1",
+        "asin": "B0PREMIUM1",
+        "price": 18.99,
+        "currency": "USD",
+        "rating": 4.6,
+        "review_count": 120,
+        "sponsored": true,
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://discovery/B0PREMIUM1",
+        "warnings": [],
+        "issues": []
+      },
+      {
+        "discovery_id": "disc-2",
+        "snapshot_id": "snapshot-1",
+        "source": "amazon_api_discovery",
+        "provider": "serpapi",
+        "query": "zero calories candy",
+        "rank": 2,
+        "status": "valid",
+        "title": "Keto Xylitol Lollipops Sugar Free Candy",
+        "product_url": "https://www.amazon.com/dp/B0HEALTHY1",
+        "asin": "B0HEALTHY1",
+        "price": 15.99,
+        "currency": "USD",
+        "rating": 4.5,
+        "review_count": 400,
+        "sponsored": false,
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://discovery/B0HEALTHY1",
+        "warnings": [],
+        "issues": []
+      }
+    ],
+    "brand_profile_report": {
+      "run_id": "collection-candy-demand-fixture",
+      "status": "partial_success",
+      "category_context": "candy",
+      "total_profiles": 2,
+      "territory_counts": {},
+      "pricing_counts": {},
+      "crowded_territories": [],
+      "underrepresented_spaces": [],
+      "profiles": [],
+      "caveats": []
+    },
+    "expected": {
+      "status": "partial_success",
+      "signals": {
+        "premium_indulgence_candy": {
+          "min_score": 0.9,
+          "match_count": 1
+        },
+        "value_multi_pack_candy": {
+          "max_score": 0.0,
+          "match_count": 0
+        }
+      },
+      "top_ranks": {
+        "premium_indulgence_candy": 1,
+        "health_forward_alternative": 1
+      }
+    }
+  },
+  {
+    "batch_id": "demand_signal_adjacent_cpg_validation_batch_v1",
+    "description": "Score adjacent CPG discovery breadth against hydration, protein powder, and energy drink territory terms.",
+    "run_id": "collection-adjacent-cpg-demand-fixture",
+    "discovery_records": [
+      {
+        "discovery_id": "disc-hydration",
+        "snapshot_id": "snapshot-adjacent",
+        "source": "amazon_api_discovery",
+        "provider": "serpapi",
+        "query": "electrolyte powder",
+        "rank": 1,
+        "status": "valid",
+        "title": "Electrolyte Powder Stick Packs Zero Sugar Hydration Variety Pack",
+        "product_url": "https://www.amazon.com/dp/B0HYDRATE",
+        "asin": "B0HYDRATE",
+        "price": 24.99,
+        "currency": "USD",
+        "rating": 4.6,
+        "review_count": 1200,
+        "sponsored": true,
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://discovery/B0HYDRATE",
+        "warnings": [],
+        "issues": []
+      },
+      {
+        "discovery_id": "disc-hydration-tablets",
+        "snapshot_id": "snapshot-adjacent",
+        "source": "amazon_api_discovery",
+        "provider": "serpapi",
+        "query": "electrolyte powder",
+        "rank": 2,
+        "status": "valid",
+        "title": "Electrolyte Tablets with Sodium Potassium Magnesium",
+        "product_url": "https://www.amazon.com/dp/B0HYDTAB",
+        "asin": "B0HYDTAB",
+        "price": 29.99,
+        "currency": "USD",
+        "rating": 4.5,
+        "review_count": 900,
+        "sponsored": false,
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://discovery/B0HYDTAB",
+        "warnings": [],
+        "issues": []
+      },
+      {
+        "discovery_id": "disc-hydration-sports",
+        "snapshot_id": "snapshot-adjacent",
+        "source": "amazon_api_discovery",
+        "provider": "serpapi",
+        "query": "electrolyte powder",
+        "rank": 3,
+        "status": "valid",
+        "title": "Sports Hydration Powder for Workout Recovery",
+        "product_url": "https://www.amazon.com/dp/B0HYDSPORT",
+        "asin": "B0HYDSPORT",
+        "price": 21.99,
+        "currency": "USD",
+        "rating": 4.4,
+        "review_count": 1800,
+        "sponsored": false,
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://discovery/B0HYDSPORT",
+        "warnings": [],
+        "issues": []
+      }
+    ],
+    "brand_profile_report": {
+      "run_id": "collection-adjacent-cpg-demand-fixture",
+      "status": "partial_success",
+      "category_context": "hydration",
+      "total_profiles": 3,
+      "territory_counts": {},
+      "pricing_counts": {},
+      "crowded_territories": [],
+      "underrepresented_spaces": [],
+      "profiles": [],
+      "caveats": []
+    },
+    "expected": {
+      "status": "partial_success",
+      "signals": {
+        "performance_electrolyte": {
+          "min_score": 0.8,
+          "match_count": 3
+        },
+        "clean_daily_hydration": {
+          "max_score": 0.0,
+          "match_count": 0
+        }
+      },
+      "top_ranks": {
+        "performance_electrolyte": 1,
+        "zero_sugar_hydration": 1,
+        "travel_stick_pack": 1
+      }
+    }
+  }
+]

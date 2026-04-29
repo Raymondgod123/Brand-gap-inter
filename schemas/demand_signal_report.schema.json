@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DemandSignalReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "status",
+    "query",
+    "category_context",
+    "source",
+    "valid_discovery_count",
+    "total_signals",
+    "signals",
+    "caveats"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "query": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category_context": {
+      "type": ["string", "null"]
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "valid_discovery_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "total_signals": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

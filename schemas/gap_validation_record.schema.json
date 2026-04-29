@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GapValidationRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "gap_id",
+    "title",
+    "candidate_space",
+    "target_territory",
+    "target_pricing_stance",
+    "whitespace_type",
+    "status",
+    "supply_gap_score",
+    "traction_score",
+    "demand_score",
+    "price_realism_score",
+    "validation_score",
+    "adjacent_asins",
+    "evidence",
+    "caveats"
+  ],
+  "properties": {
+    "gap_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_space": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_territory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_pricing_stance": {
+      "type": "string",
+      "minLength": 1
+    },
+    "whitespace_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["supported", "tentative", "weak"]
+    },
+    "supply_gap_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "traction_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "demand_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "price_realism_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "validation_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "adjacent_asins": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

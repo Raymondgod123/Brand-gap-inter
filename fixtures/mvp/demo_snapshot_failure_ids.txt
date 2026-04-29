@@ -1,0 +1,6 @@
+# Audited snapshot ids that are expected to fail safely in replay mode.
+# This list is used in stakeholder demo to show trust-first behavior.
+# Use with:
+#   python -m brand_gap_inference.mvp_run --snapshot-ids-file fixtures/mvp/demo_snapshot_failure_ids.txt --source amazon
+
+amazon-B098H7XWQ6-2026-04-24T01-23-08Z

@@ -1,0 +1,359 @@
+[
+  {
+    "batch_id": "gap_validation_batch_v1",
+    "description": "Validate directional gap candidates from brand profiles and review-based traction proxies.",
+    "run_id": "data-collection-sugar-fixture-003",
+    "product_intelligence_records": [
+      {
+        "product_id": "amazon:B0D1L1KSMZ",
+        "asin": "B0D1L1KSMZ",
+        "title": "Amazon Saver, White Sugar, 4 Lb",
+        "brand": "Visit the Amazon Saver Store",
+        "product_url": "https://www.amazon.com/dp/B0D1L1KSMZ",
+        "price": 3.07,
+        "currency": null,
+        "rating": 4.8,
+        "review_count": 1543,
+        "availability": "In Stock"
+      },
+      {
+        "product_id": "amazon:B0FZXW7LVY",
+        "asin": "B0FZXW7LVY",
+        "title": "Sweetmo Sugar Packets Variety Pack",
+        "brand": "Sweetmo",
+        "product_url": "https://www.amazon.com/dp/B0FZXW7LVY",
+        "price": 22.49,
+        "currency": null,
+        "rating": 4.8,
+        "review_count": 60,
+        "availability": "In Stock"
+      },
+      {
+        "product_id": "amazon:B09RPPBG15",
+        "asin": "B09RPPBG15",
+        "title": "Domino Granulated Sugar, 20 oz Canister, Pack of 3",
+        "brand": "Domino",
+        "product_url": "https://www.amazon.com/dp/B09RPPBG15",
+        "price": 22.99,
+        "currency": null,
+        "rating": 4.5,
+        "review_count": 917,
+        "availability": "In Stock"
+      }
+    ],
+    "brand_profile_records": [
+      {
+        "product_id": "amazon:B0D1L1KSMZ",
+        "asin": "B0D1L1KSMZ",
+        "brand_name": "Amazon Saver",
+        "positioning_territory": "value_pantry_basics",
+        "target_audience": "budget-focused household pantry shoppers",
+        "value_proposition": "Affordable everyday sugar basics for routine pantry replenishment.",
+        "tone_of_voice": "plainspoken_value",
+        "pricing_stance": "budget_anchor",
+        "visual_story": "Uses packaging, promo, and video together.",
+        "proof_points": [
+          "Amazon Saver, White Sugar, 4 Lb",
+          "Gluten free"
+        ],
+        "primary_claims": [
+          "saver",
+          "affordable",
+          "budget"
+        ],
+        "evidence_refs": [
+          "product_intelligence:B0D1L1KSMZ",
+          "brand_positioning:B0D1L1KSMZ"
+        ],
+        "warnings": [
+          "currency missing from upstream product intelligence"
+        ]
+      },
+      {
+        "product_id": "amazon:B0FZXW7LVY",
+        "asin": "B0FZXW7LVY",
+        "brand_name": "Sweetmo",
+        "positioning_territory": "convenience_beverage_station",
+        "target_audience": "office, hospitality, and home beverage-station restockers",
+        "value_proposition": "Convenient multi-format sweetening.",
+        "tone_of_voice": "service_oriented",
+        "pricing_stance": "mid_market",
+        "visual_story": "Uses packet-heavy merchandising and video proof.",
+        "proof_points": [
+          "Sweetmo Sugar Packets Variety Pack",
+          "Perfect for coffee and tea stations."
+        ],
+        "primary_claims": [
+          "packets",
+          "variety pack",
+          "office",
+          "home"
+        ],
+        "evidence_refs": [
+          "product_intelligence:B0FZXW7LVY",
+          "brand_positioning:B0FZXW7LVY"
+        ],
+        "warnings": [
+          "currency missing from upstream product intelligence"
+        ]
+      },
+      {
+        "product_id": "amazon:B09RPPBG15",
+        "asin": "B09RPPBG15",
+        "brand_name": "Domino",
+        "positioning_territory": "premium_pantry_basics",
+        "target_audience": "household bakers and pantry stockers willing to pay up for format or brand",
+        "value_proposition": "Higher-priced pantry sugar framed as a dependable baking staple.",
+        "tone_of_voice": "household_practical",
+        "pricing_stance": "premium_pantry",
+        "visual_story": "Relies on classic pantry pack shots.",
+        "proof_points": [
+          "Domino Granulated Sugar, 20 oz Canister, Pack of 3",
+          "Premium granulated pure cane sugar made with non-GMO pure cane sugar."
+        ],
+        "primary_claims": [
+          "non gmo",
+          "canister",
+          "pack of"
+        ],
+        "evidence_refs": [
+          "product_intelligence:B09RPPBG15",
+          "brand_positioning:B09RPPBG15"
+        ],
+        "warnings": [
+          "currency missing from upstream product intelligence"
+        ]
+      }
+    ],
+    "brand_profile_report": {
+      "run_id": "data-collection-sugar-fixture-003",
+      "status": "partial_success",
+      "total_profiles": 3,
+      "territory_counts": {
+        "value_pantry_basics": 1,
+        "convenience_beverage_station": 1,
+        "premium_pantry_basics": 1
+      },
+      "pricing_counts": {
+        "budget_anchor": 1,
+        "mid_market": 1,
+        "premium_pantry": 1
+      },
+      "crowded_territories": [],
+      "underrepresented_spaces": [
+        "No clear health-forward sugar alternative appears in this selected set."
+      ],
+      "profiles": [],
+      "caveats": [
+        "This market map is directional only and should not be treated as validated whitespace without demand grounding."
+      ]
+    },
+    "expected": {
+      "status": "success",
+      "top_candidate": {
+        "target_territory": "health_forward_alternative",
+        "status": "tentative"
+      },
+      "supported_candidates": 0,
+      "candidate_space_fragment": "health forward alternative"
+    }
+  },
+  {
+    "batch_id": "gap_validation_supported_hydration_batch_v1",
+    "description": "Supported adjacent CPG opportunity where family-variety hydration is absent but adjacent traction is strong.",
+    "run_id": "collection-hydration-supported-fixture",
+    "product_intelligence_records": [
+      {"asin": "B0HYD001", "rating": 4.7, "review_count": 4500},
+      {"asin": "B0HYD002", "rating": 4.6, "review_count": 3200},
+      {"asin": "B0HYD003", "rating": 4.5, "review_count": 2800},
+      {"asin": "B0HYD004", "rating": 4.4, "review_count": 1600},
+      {"asin": "B0HYD005", "rating": 4.6, "review_count": 2400}
+    ],
+    "brand_profile_records": [
+      {
+        "asin": "B0HYD001",
+        "positioning_territory": "performance_electrolyte",
+        "pricing_stance": "budget_anchor",
+        "primary_claims": ["electrolytes", "variety pack"],
+        "proof_points": ["Electrolyte powder variety pack for sports hydration."]
+      },
+      {
+        "asin": "B0HYD002",
+        "positioning_territory": "performance_electrolyte",
+        "pricing_stance": "mid_market",
+        "primary_claims": ["sodium", "multiple flavors"],
+        "proof_points": ["Hydration powder with multiple flavors for workout recovery."]
+      },
+      {
+        "asin": "B0HYD003",
+        "positioning_territory": "zero_sugar_hydration",
+        "pricing_stance": "premium_pantry",
+        "primary_claims": ["zero sugar", "family"],
+        "proof_points": ["Zero sugar electrolyte hydration with family-friendly flavors."]
+      },
+      {
+        "asin": "B0HYD004",
+        "positioning_territory": "travel_stick_pack",
+        "pricing_stance": "mid_market",
+        "primary_claims": ["stick packs", "travel"],
+        "proof_points": ["Stick pack hydration for travel and on-the-go use."]
+      },
+      {
+        "asin": "B0HYD005",
+        "positioning_territory": "clean_daily_hydration",
+        "pricing_stance": "budget_anchor",
+        "primary_claims": ["clean", "variety"],
+        "proof_points": ["Clean daily hydration variety flavors."]
+      }
+    ],
+    "brand_profile_report": {
+      "run_id": "collection-hydration-supported-fixture",
+      "status": "partial_success",
+      "category_context": "hydration",
+      "total_profiles": 5,
+      "territory_counts": {
+        "performance_electrolyte": 2,
+        "zero_sugar_hydration": 1,
+        "travel_stick_pack": 1,
+        "clean_daily_hydration": 1
+      },
+      "pricing_counts": {
+        "budget_anchor": 2,
+        "mid_market": 2,
+        "premium_pantry": 1
+      },
+      "crowded_territories": ["performance_electrolyte (2)"],
+      "underrepresented_spaces": [
+        "No clear family or variety-led hydration player appears in this selected set."
+      ],
+      "profiles": [],
+      "caveats": ["This market map is directional only and should not be treated as validated whitespace without demand grounding."]
+    },
+    "expected": {
+      "status": "partial_success",
+      "top_candidate": {
+        "target_territory": "family_variety_hydration",
+        "status": "supported"
+      },
+      "supported_candidates": 1,
+      "candidate_space_fragment": "family variety hydration"
+    }
+  },
+  {
+    "batch_id": "gap_validation_crowded_protein_powder_batch_v1",
+    "description": "Crowded protein powder fixture where all target territories are covered by primary or secondary signals.",
+    "run_id": "collection-protein-powder-crowded-fixture",
+    "product_intelligence_records": [
+      {"asin": "B0PRO001", "rating": 4.6, "review_count": 3000},
+      {"asin": "B0PRO002", "rating": 4.5, "review_count": 1800},
+      {"asin": "B0PRO003", "rating": 4.4, "review_count": 1500}
+    ],
+    "brand_profile_records": [
+      {
+        "asin": "B0PRO001",
+        "positioning_territory": "performance_muscle_protein",
+        "secondary_territories": ["clean_plant_protein_powder", "value_bulk_protein"],
+        "pricing_stance": "budget_anchor",
+        "primary_claims": ["whey", "muscle", "bulk"],
+        "proof_points": ["Whey protein powder for muscle recovery in bulk servings."]
+      },
+      {
+        "asin": "B0PRO002",
+        "positioning_territory": "meal_replacement_protein",
+        "secondary_territories": ["flavor_lifestyle_protein"],
+        "pricing_stance": "mid_market",
+        "primary_claims": ["meal replacement", "vanilla"],
+        "proof_points": ["Protein shake meal replacement with vanilla smoothie flavor."]
+      },
+      {
+        "asin": "B0PRO003",
+        "positioning_territory": "clean_plant_protein_powder",
+        "secondary_territories": ["performance_muscle_protein"],
+        "pricing_stance": "premium_pantry",
+        "primary_claims": ["organic", "plant based", "recovery"],
+        "proof_points": ["Organic plant based protein powder for workout recovery."]
+      }
+    ],
+    "brand_profile_report": {
+      "run_id": "collection-protein-powder-crowded-fixture",
+      "status": "success",
+      "category_context": "protein_powder",
+      "total_profiles": 3,
+      "territory_counts": {
+        "performance_muscle_protein": 1,
+        "meal_replacement_protein": 1,
+        "clean_plant_protein_powder": 1
+      },
+      "pricing_counts": {
+        "budget_anchor": 1,
+        "mid_market": 1,
+        "premium_pantry": 1
+      },
+      "crowded_territories": [],
+      "underrepresented_spaces": [],
+      "profiles": [],
+      "caveats": ["This market map is directional only and should not be treated as validated whitespace without demand grounding."]
+    },
+    "expected": {
+      "status": "success",
+      "top_candidate": {
+        "target_territory": "value_bulk_protein",
+        "status": "tentative"
+      },
+      "supported_candidates": 0,
+      "candidate_space_fragment": "value bulk protein"
+    }
+  },
+  {
+    "batch_id": "gap_validation_warning_heavy_energy_batch_v1",
+    "description": "Warning-heavy energy drink fixture stays below supported opportunity status.",
+    "run_id": "collection-energy-warning-fixture",
+    "product_intelligence_records": [
+      {
+        "asin": "B0ENG001",
+        "rating": 4.4,
+        "review_count": 900,
+        "currency": null,
+        "warnings": ["detail: currency missing", "promotional content missing"]
+      }
+    ],
+    "brand_profile_records": [
+      {
+        "asin": "B0ENG001",
+        "positioning_territory": "zero_sugar_energy_drink",
+        "secondary_territories": [],
+        "pricing_stance": "premium_pantry",
+        "primary_claims": ["zero sugar", "focus"],
+        "proof_points": ["Zero sugar energy drink with focus claims and limited evidence."],
+        "warnings": ["currency missing from upstream product intelligence"]
+      }
+    ],
+    "brand_profile_report": {
+      "run_id": "collection-energy-warning-fixture",
+      "status": "partial_success",
+      "category_context": "energy_drink",
+      "total_profiles": 1,
+      "territory_counts": {
+        "zero_sugar_energy_drink": 1
+      },
+      "pricing_counts": {
+        "premium_pantry": 1
+      },
+      "crowded_territories": [],
+      "underrepresented_spaces": [
+        "No clear focus or functional energy drink player appears in this selected set."
+      ],
+      "profiles": [],
+      "caveats": ["1 profiles are missing currency, so pricing stance is relative only."]
+    },
+    "expected": {
+      "status": "success",
+      "top_candidate": {
+        "target_territory": "focus_functional_energy",
+        "status": "tentative"
+      },
+      "supported_candidates": 0,
+      "candidate_space_fragment": "focus functional energy"
+    }
+  }
+]

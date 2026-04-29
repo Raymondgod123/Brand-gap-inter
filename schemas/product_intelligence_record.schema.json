@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProductIntelligenceRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "product_id",
+    "asin",
+    "title",
+    "brand",
+    "product_url",
+    "price",
+    "currency",
+    "rating",
+    "review_count",
+    "availability",
+    "media_assets",
+    "promotional_content",
+    "description_bullets",
+    "discovery_rank",
+    "sponsored",
+    "source_snapshots",
+    "field_provenance",
+    "warnings",
+    "issues"
+  ],
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": ["string", "null"]
+    },
+    "brand": {
+      "type": ["string", "null"]
+    },
+    "product_url": {
+      "type": ["string", "null"]
+    },
+    "price": {
+      "type": ["number", "null"]
+    },
+    "currency": {
+      "type": ["string", "null"]
+    },
+    "rating": {
+      "type": ["number", "null"]
+    },
+    "review_count": {
+      "type": ["integer", "null"]
+    },
+    "availability": {
+      "type": ["string", "null"]
+    },
+    "media_assets": {
+      "type": "object"
+    },
+    "promotional_content": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "description_bullets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "discovery_rank": {
+      "type": ["integer", "null"]
+    },
+    "sponsored": {
+      "type": ["boolean", "null"]
+    },
+    "source_snapshots": {
+      "type": "object"
+    },
+    "field_provenance": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "message", "severity"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["warning", "error"]
+          }
+        }
+      }
+    }
+  }
+}

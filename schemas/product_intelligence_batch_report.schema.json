@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProductIntelligenceBatchReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "status",
+    "total_products",
+    "complete_products",
+    "warning_products",
+    "issue_products",
+    "records"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "total_products": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "complete_products": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "warning_products": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "issue_products": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}
