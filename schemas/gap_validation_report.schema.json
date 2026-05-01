@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GapValidationReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "status",
+    "total_candidates",
+    "supported_candidates",
+    "tentative_candidates",
+    "weak_candidates",
+    "demand_signal_source",
+    "top_candidates",
+    "records",
+    "caveats"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "category_context": {
+      "type": ["string", "null"]
+    },
+    "total_candidates": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "supported_candidates": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "tentative_candidates": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "weak_candidates": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "demand_signal_source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "top_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

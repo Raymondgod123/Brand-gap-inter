@@ -1,0 +1,22 @@
+{
+  "metrics": {
+    "brand_profile_status_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_profile_visual_signal_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_profile_territory_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_profile_pricing_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_profile_market_map_accuracy": {
+      "minimum": 1.0
+    },
+    "brand_profile_repeat_run_stability": {
+      "minimum": 1.0
+    }
+  }
+}

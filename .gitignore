@@ -5,3 +5,5 @@ data/raw/
 artifacts/
 .tmp-tests/
 .tmp-pip/
+.gitnexus
+SERPAI_API_KEY.md

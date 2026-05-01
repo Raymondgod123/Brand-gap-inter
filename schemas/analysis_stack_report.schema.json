@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AnalysisStackReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "generated_at",
+    "collection_dir",
+    "status",
+    "include_deep_inference",
+    "step_results",
+    "completed_steps",
+    "failed_steps",
+    "artifacts",
+    "warnings"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "collection_dir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "include_deep_inference": {
+      "type": "boolean"
+    },
+    "step_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step",
+          "required",
+          "status",
+          "report_status",
+          "depends_on",
+          "output_dir",
+          "artifacts",
+          "warnings",
+          "error"
+        ],
+        "properties": {
+          "step": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["success", "failed", "skipped"]
+          },
+          "report_status": {
+            "type": "string",
+            "enum": ["success", "partial_success", "failed", "not_run", "unknown"]
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "output_dir": {
+            "type": "string",
+            "minLength": 1
+          },
+          "artifacts": {
+            "type": "object"
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "completed_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "failed_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "artifacts": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

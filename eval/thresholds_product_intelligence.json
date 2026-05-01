@@ -1,0 +1,25 @@
+{
+  "metrics": {
+    "product_intelligence_merge_status_accuracy": {
+      "minimum": 1.0
+    },
+    "product_intelligence_summary_accuracy": {
+      "minimum": 1.0
+    },
+    "product_intelligence_provenance_accuracy": {
+      "minimum": 1.0
+    },
+    "landscape_claim_pattern_accuracy": {
+      "minimum": 1.0
+    },
+    "product_intelligence_sanitization_accuracy": {
+      "minimum": 1.0
+    },
+    "product_intelligence_source_failure_accuracy": {
+      "minimum": 1.0
+    },
+    "product_intelligence_repeat_run_stability": {
+      "minimum": 1.0
+    }
+  }
+}

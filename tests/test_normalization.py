@@ -169,6 +169,44 @@ class NormalizationTests(unittest.TestCase):
         self.assertAlmostEqual(18.49, listing["price"], places=2)
         self.assertAlmostEqual(0.5136, listing["unit_price"], places=4)
 
+    def test_price_parses_from_primary_container_whole_and_fraction(self) -> None:
+        record = self._make_record(
+            record_id="variant-price-whole-fraction",
+            asin="WHOLEFRA01",
+            html_override="""
+            <html>
+              <body>
+                <span id="productTitle">Example Brand Sparkling Water 12 Fl Oz (Pack of 3)</span>
+                <a id="bylineInfo">Visit the Example Brand Store</a>
+                <ul class="a-unordered-list a-horizontal a-size-small">
+                  <li><span class="a-list-item"><a class="a-link-normal a-color-tertiary">Grocery &amp; Gourmet Food</a></span></li>
+                </ul>
+                <div id="corePriceDisplay_desktop_feature_div">
+                  <span class="a-price">
+                    <span aria-hidden="true">
+                      <span class="a-price-symbol">$</span>
+                      <span class="a-price-whole">24</span>
+                      <span class="a-price-decimal">.</span>
+                      <span class="a-price-fraction">99</span>
+                    </span>
+                  </span>
+                </div>
+                <div id="availability">In Stock.</div>
+              </body>
+            </html>
+            """,
+        )
+        manifest = self._make_manifest([record], "snapshot-price-whole-fraction")
+
+        result = BatchNormalizer().normalize_snapshot(manifest, [record])
+
+        self.assertEqual("success", result.summary.run_status)
+        listing = result.normalized_listings[0]
+        self.assertAlmostEqual(24.99, listing["price"], places=2)
+        self.assertAlmostEqual(0.6942, listing["unit_price"], places=4)
+        price_provenance = result.records[0].field_provenance["price"]
+        self.assertEqual("price_primary_container", price_provenance["rule"])
+
     def test_limited_availability_from_other_sellers_is_preserved(self) -> None:
         record = self._make_record(
             record_id="variant-availability",
@@ -193,6 +231,149 @@ class NormalizationTests(unittest.TestCase):
 
         self.assertEqual("success", result.summary.run_status)
         self.assertEqual("limited", result.normalized_listings[0]["availability"])
+
+    def test_missing_price_reports_no_featured_offers_context(self) -> None:
+        record = self._make_record(
+            record_id="no-featured-offer-1",
+            asin="NOFEATURE01",
+            html_override="""
+            <html>
+              <body>
+                <span id="productTitle">Lakanto Monk Fruit Sweetener Keto 5 LB Bag</span>
+                <a id="bylineInfo">Lakanto</a>
+                <div>No featured offers available</div>
+                <div>See All Buying Options</div>
+                <script>
+                  var data = {
+                    &quot;priceAmount&quot;: 15.19,
+                    &quot;productTitle&quot;: &quot;Stevia Select Organic Stevia Powder 1.25oz&quot;
+                  };
+                  var data2 = {
+                    &quot;priceAmount&quot;: 12.82,
+                    &quot;productTitle&quot;: &quot;Stevia Select Plain Stevia Liquid Drops&quot;
+                  };
+                </script>
+              </body>
+            </html>
+            """,
+        )
+        manifest = self._make_manifest([record], "snapshot-no-featured-offers")
+
+        result = BatchNormalizer().normalize_snapshot(manifest, [record])
+
+        self.assertEqual("failed", result.summary.run_status)
+        record_result = result.records[0]
+        self.assertEqual("invalid", record_result.status)
+        self.assertTrue(any("no featured offers available" in issue.message for issue in record_result.issues))
+        self.assertIn("Stevia Select Organic Stevia Powder", record_result.field_provenance["price"]["source_detail"])
+
+    def test_missing_price_reports_buying_options_only_context(self) -> None:
+        record = self._make_record(
+            record_id="buying-options-only-1",
+            asin="BUYOPT001",
+            html_override="""
+            <html>
+              <body>
+                <span id="productTitle">Lakanto Monk Fruit Sweetener Keto 5 LB Bag</span>
+                <a id="bylineInfo">Lakanto</a>
+                <div>See All Buying Options</div>
+                <script>
+                  var data = {
+                    &quot;priceAmount&quot;: 19.49,
+                    &quot;productTitle&quot;: &quot;Other Brand Sweetener 16 oz&quot;
+                  };
+                </script>
+              </body>
+            </html>
+            """,
+        )
+        manifest = self._make_manifest([record], "snapshot-buying-options-only")
+
+        result = BatchNormalizer().normalize_snapshot(manifest, [record])
+
+        self.assertEqual("failed", result.summary.run_status)
+        record_result = result.records[0]
+        self.assertEqual("invalid", record_result.status)
+        self.assertTrue(any("buying-options only" in issue.message for issue in record_result.issues))
+
+    def test_price_parser_ignores_script_widget_container_strings(self) -> None:
+        record = self._make_record(
+            record_id="script-widget-price-trap-1",
+            asin="TRAPPRICE01",
+            html_override="""
+            <html>
+              <body>
+                <span id="productTitle">Lakanto Monk Fruit Sweetener Keto 5 LB Bag</span>
+                <a id="bylineInfo">Lakanto</a>
+                <div id="desktop_buybox">
+                  <div id="outOfStockBuyBox_feature_div">No featured offers available</div>
+                  <div>See All Buying Options</div>
+                </div>
+                <script>
+                  var updates = [{"divToUpdate":"corePriceDisplay_desktop_feature_div"}];
+                  var adHtml = '<div id="corePriceDisplay_desktop_feature_div"><span class="a-offscreen">$675.89</span><span class="a-price-whole">675</span><span class="a-price-fraction">89</span></div>';
+                </script>
+              </body>
+            </html>
+            """,
+        )
+        manifest = self._make_manifest([record], "snapshot-script-widget-price-trap")
+
+        result = BatchNormalizer().normalize_snapshot(manifest, [record])
+
+        self.assertEqual("failed", result.summary.run_status)
+        self.assertEqual([], result.normalized_listings)
+        record_result = result.records[0]
+        self.assertEqual("invalid", record_result.status)
+        self.assertTrue(any("no featured offers available" in issue.message for issue in record_result.issues))
+
+    def test_browser_captured_record_normalizes_without_special_case_logic(self) -> None:
+        record = self._make_record(
+            record_id="browser-capture-1",
+            asin="BROWSERN1",
+            html_override="""
+            <html>
+              <body>
+                <span id="productTitle">Browser Brand Hydration Drink 16 Fl Oz (Pack of 2)</span>
+                <a id="bylineInfo">Visit the Browser Brand Store</a>
+                <ul class="a-unordered-list a-horizontal a-size-small">
+                  <li><span class="a-list-item"><a class="a-link-normal a-color-tertiary">Grocery &amp; Gourmet Food</a></span></li>
+                </ul>
+                <div id="priceToPay">
+                  <span class="a-offscreen">$21.50</span>
+                </div>
+                <div id="availability">In Stock.</div>
+              </body>
+            </html>
+            """,
+        )
+        record.payload["acquisition_method"] = "browser_playwright"
+        record.payload["browser_engine"] = "chromium"
+        record.payload["headers"] = {}
+        record.payload["capture_diagnostics"] = {
+            "navigation_ok": True,
+            "ready_state": "complete",
+            "wait_strategy": "domcontentloaded+body+bounded_settle",
+            "timing_ms": {"goto": 120, "settle": 250, "total": 370},
+            "visible_offer_signals": {
+                "has_no_featured_offers": False,
+                "has_buying_options": False,
+                "has_currently_unavailable": False,
+                "has_price_to_pay_block": True,
+                "has_core_price_block": False,
+            },
+        }
+        manifest = self._make_manifest([record], "snapshot-browser-capture")
+
+        result = BatchNormalizer().normalize_snapshot(manifest, [record])
+
+        self.assertEqual("success", result.summary.run_status)
+        listing = result.normalized_listings[0]
+        self.assertEqual("Browser Brand", listing["brand_name"])
+        self.assertAlmostEqual(21.50, listing["price"], places=2)
+        self.assertEqual("oz", listing["unit_measure"])
+        self.assertEqual(2, listing["pack_count"])
+        self.assertEqual("price_primary_container", result.records[0].field_provenance["price"]["rule"])
 
     def test_dirty_amazon_fixture_batch_is_partial_success_and_traceable(self) -> None:
         connector = FixtureConnector(source_name="amazon", fixture_path=DIRTY_FIXTURE_PATH)

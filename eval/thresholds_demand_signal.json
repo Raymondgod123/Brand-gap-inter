@@ -1,0 +1,16 @@
+{
+  "metrics": {
+    "demand_signal_status_accuracy": {
+      "minimum": 1.0
+    },
+    "demand_signal_score_accuracy": {
+      "minimum": 1.0
+    },
+    "demand_signal_top_rank_accuracy": {
+      "minimum": 1.0
+    },
+    "demand_signal_repeat_run_stability": {
+      "minimum": 1.0
+    }
+  }
+}

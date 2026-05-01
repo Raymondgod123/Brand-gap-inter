@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DiscoveryBatchReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_id",
+    "source",
+    "provider",
+    "query",
+    "run_status",
+    "total_candidates",
+    "valid_candidates",
+    "invalid_candidates",
+    "warning_records",
+    "records"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "query": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "total_candidates": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "valid_candidates": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "invalid_candidates": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "warning_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "discovery_id",
+          "rank",
+          "status",
+          "warning_count",
+          "issue_count"
+        ],
+        "properties": {
+          "discovery_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rank": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": ["valid", "invalid"]
+          },
+          "title": {
+            "type": ["string", "null"]
+          },
+          "product_url": {
+            "type": ["string", "null"]
+          },
+          "asin": {
+            "type": ["string", "null"]
+          },
+          "warning_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "issue_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    }
+  }
+}

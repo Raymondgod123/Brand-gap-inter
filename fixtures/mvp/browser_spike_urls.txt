@@ -1,0 +1,8 @@
+# Curated live URLs for the browser acquisition spike.
+# These were previously observed in live capture work and are used only to
+# test whether browser-mode materially improves MVP completion.
+
+https://www.amazon.com/dp/B098H7XWQ6
+https://www.amazon.com/dp/B01LDNBAC4
+https://www.amazon.com/dp/B014RVNVKS
+https://www.amazon.com/dp/B000EA2D9C

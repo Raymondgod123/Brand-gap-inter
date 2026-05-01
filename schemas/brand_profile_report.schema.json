@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BrandProfileReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "status",
+    "total_profiles",
+    "territory_counts",
+    "territory_coverage_counts",
+    "pricing_counts",
+    "crowded_territories",
+    "underrepresented_spaces",
+    "profiles",
+    "caveats"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "partial_success",
+        "failed"
+      ]
+    },
+    "category_context": {
+      "type": ["string", "null"]
+    },
+    "total_profiles": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "territory_counts": {
+      "type": "object"
+    },
+    "territory_coverage_counts": {
+      "type": "object"
+    },
+    "pricing_counts": {
+      "type": "object"
+    },
+    "crowded_territories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "underrepresented_spaces": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

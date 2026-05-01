@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DecisionBriefReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "status",
+    "category_context",
+    "recommendation_level",
+    "headline",
+    "executive_summary",
+    "opportunity_count_summary",
+    "top_opportunity",
+    "decision_rationale",
+    "recommended_next_steps",
+    "validation_requirements",
+    "blocked_reasons",
+    "quality_warnings",
+    "source_reports",
+    "caveats"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "category_context": {
+      "type": ["string", "null"]
+    },
+    "recommendation_level": {
+      "type": "string",
+      "enum": [
+        "validate_now",
+        "validate_with_caution",
+        "research_before_validation",
+        "do_not_prioritize_yet",
+        "insufficient_evidence"
+      ]
+    },
+    "headline": {
+      "type": "string",
+      "minLength": 1
+    },
+    "executive_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "opportunity_count_summary": {
+      "type": "object"
+    },
+    "top_opportunity": {
+      "type": "object"
+    },
+    "decision_rationale": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "recommended_next_steps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "validation_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "quality_warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_reports": {
+      "type": "object"
+    },
+    "caveats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

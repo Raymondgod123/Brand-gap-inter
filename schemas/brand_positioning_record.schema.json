@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BrandPositioningRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "product_id",
+    "asin",
+    "brand_name",
+    "title",
+    "positioning_archetype",
+    "price_tier",
+    "value_signal",
+    "health_signal",
+    "convenience_signal",
+    "visual_strategy",
+    "claim_signals",
+    "usage_contexts",
+    "packaging_signal_summary",
+    "evidence",
+    "warnings"
+  ],
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "brand_name": {
+      "type": ["string", "null"]
+    },
+    "title": {
+      "type": ["string", "null"]
+    },
+    "positioning_archetype": {
+      "type": "string",
+      "minLength": 1
+    },
+    "price_tier": {
+      "type": "string",
+      "minLength": 1
+    },
+    "value_signal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "health_signal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "convenience_signal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "visual_strategy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim_signals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "usage_contexts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "packaging_signal_summary": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

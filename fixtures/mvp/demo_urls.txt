@@ -1,0 +1,4 @@
+# Candidate URLs for MVP demos.
+# Runner tries each URL in order until one run succeeds.
+
+https://www.amazon.com/dp/B098H7XWQ6

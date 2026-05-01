@@ -200,5 +200,39 @@
       "min_confidence": 0.75,
       "warning_count": 0
     }
+  },
+  {
+    "case_id": "baking_sweetener_non_keto",
+    "description": "Baking sweetener with no keto/low-carb cue should map audience to bakers.",
+    "listing": {
+      "listing_id": "manual:baking-sweetener-001",
+      "source": "manual",
+      "source_record_id": "baking-sweetener-001",
+      "captured_at": "2026-04-24T00:00:00Z",
+      "product_title": "Bakers Choice Sweetener Powder For Baking 32 Oz",
+      "brand_name": "Bakers Choice",
+      "category_path": [
+        "grocery-gourmet-food",
+        "cooking-baking",
+        "sugar-substitutes"
+      ],
+      "price": 17.99,
+      "currency": "USD",
+      "unit_price": 0.5622,
+      "unit_measure": "oz",
+      "pack_count": 1,
+      "availability": "in_stock",
+      "raw_payload_uri": "fixtures://taxonomy_golden/baking_sweetener_non_keto.json"
+    },
+    "expected": {
+      "axes": {
+        "need_state": "sugar_replacement",
+        "occasion": "baking",
+        "format": "powder",
+        "audience": "bakers"
+      },
+      "min_confidence": 0.8,
+      "warning_count": 0
+    }
   }
 ]

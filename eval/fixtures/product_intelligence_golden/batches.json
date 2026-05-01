@@ -1,0 +1,488 @@
+[
+  {
+    "batch_id": "product_intelligence_merge_batch_v1",
+    "description": "Merge discovery breadth with product detail enrichment, preserving field provenance and landscape claim patterns.",
+    "collection_report": {
+      "run_id": "data-collection-fixture-001",
+      "generated_at": "2026-04-24T18:00:00Z",
+      "mode": "live",
+      "keyword": "monk fruit sweetener",
+      "status": "success",
+      "max_products": 2,
+      "discovery": {
+        "snapshot_id": "amazon_api_discovery-fixture-001",
+        "run_status": "success",
+        "total_candidates": 2,
+        "valid_candidates": 2,
+        "invalid_candidates": 0,
+        "warning_records": 0,
+        "artifacts": {}
+      },
+      "selected_candidates": [
+        {
+          "discovery_id": "disc-rank-01-B00CF2B04Q",
+          "rank": 1,
+          "title": "Lakanto Classic Monk Fruit Sweetener Keto Baking",
+          "asin": "B00CF2B04Q",
+          "product_url": "https://www.amazon.com/dp/B00CF2B04Q",
+          "price": 9.99,
+          "currency": "USD",
+          "rating": 4.6,
+          "review_count": 41234,
+          "sponsored": false
+        },
+        {
+          "discovery_id": "disc-rank-02-B0CF6L6PRT",
+          "rank": 2,
+          "title": "Liquid Monk Fruit Sweetener Keto Coffee",
+          "asin": "B0CF6L6PRT",
+          "product_url": "https://www.amazon.com/dp/B0CF6L6PRT",
+          "price": 18.49,
+          "currency": "USD",
+          "rating": 4.2,
+          "review_count": 210,
+          "sponsored": true
+        }
+      ],
+      "detail": {
+        "enabled": true,
+        "source": "amazon_api_product",
+        "snapshot_id": "amazon_api_product-fixture-001",
+        "selected_count": 2,
+        "collected_count": 2,
+        "valid_records": 2,
+        "invalid_records": 0,
+        "skipped_reason": null,
+        "artifacts": {}
+      },
+      "artifacts": {}
+    },
+    "discovery_records": [
+      {
+        "discovery_id": "disc-rank-01-B00CF2B04Q",
+        "snapshot_id": "amazon_api_discovery-fixture-001",
+        "source": "amazon_api_discovery",
+        "provider": "serpapi",
+        "query": "monk fruit sweetener",
+        "rank": 1,
+        "status": "valid",
+        "title": "Lakanto Classic Monk Fruit Sweetener Keto Baking",
+        "product_url": "https://www.amazon.com/dp/B00CF2B04Q",
+        "asin": "B00CF2B04Q",
+        "price": 9.99,
+        "currency": "USD",
+        "rating": 4.6,
+        "review_count": 41234,
+        "sponsored": false,
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://discovery/B00CF2B04Q",
+        "warnings": [],
+        "issues": []
+      },
+      {
+        "discovery_id": "disc-rank-02-B0CF6L6PRT",
+        "snapshot_id": "amazon_api_discovery-fixture-001",
+        "source": "amazon_api_discovery",
+        "provider": "serpapi",
+        "query": "monk fruit sweetener",
+        "rank": 2,
+        "status": "valid",
+        "title": "Liquid Monk Fruit Sweetener Keto Coffee",
+        "product_url": "https://www.amazon.com/dp/B0CF6L6PRT",
+        "asin": "B0CF6L6PRT",
+        "price": 18.49,
+        "currency": "USD",
+        "rating": 4.2,
+        "review_count": 210,
+        "sponsored": true,
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://discovery/B0CF6L6PRT",
+        "warnings": [],
+        "issues": []
+      }
+    ],
+    "detail_records": [
+      {
+        "detail_id": "detail-B00CF2B04Q",
+        "snapshot_id": "amazon_api_product-fixture-001",
+        "source": "amazon_api_product",
+        "provider": "serpapi",
+        "asin": "B00CF2B04Q",
+        "status": "valid",
+        "title": "Lakanto Classic Monk Fruit Sweetener Keto Baking",
+        "brand": "Lakanto",
+        "product_url": "https://www.amazon.com/dp/B00CF2B04Q",
+        "price": 10.49,
+        "currency": null,
+        "rating": 4.6,
+        "review_count": 41240,
+        "availability": "In Stock",
+        "media_assets": {
+          "primary_image": "https://example.com/main-b00.jpg",
+          "gallery_images": ["https://example.com/gallery-b00-1.jpg"],
+          "promotional_images": ["https://example.com/promo-b00.jpg"],
+          "videos": []
+        },
+        "promotional_content": [
+          {
+            "position": 1,
+            "title": "Bake with less sugar",
+            "image": "https://example.com/promo-b00.jpg"
+          }
+        ],
+        "description_bullets": ["Keto friendly", "Great for baking"],
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://detail/B00CF2B04Q",
+        "warnings": ["currency missing from product detail response"],
+        "issues": []
+      },
+      {
+        "detail_id": "detail-B0CF6L6PRT",
+        "snapshot_id": "amazon_api_product-fixture-001",
+        "source": "amazon_api_product",
+        "provider": "serpapi",
+        "asin": "B0CF6L6PRT",
+        "status": "valid",
+        "title": "Transparency Foods Liquid Monk Fruit Sweetener Keto Coffee",
+        "brand": null,
+        "product_url": "https://www.amazon.com/dp/B0CF6L6PRT",
+        "price": 18.49,
+        "currency": null,
+        "rating": 4.2,
+        "review_count": 210,
+        "availability": "In Stock",
+        "media_assets": {
+          "primary_image": "https://example.com/main-b0c.jpg",
+          "gallery_images": ["https://example.com/gallery-b0c-1.jpg"],
+          "promotional_images": [],
+          "videos": []
+        },
+        "promotional_content": [],
+        "description_bullets": ["Keto friendly", "Good for coffee"],
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://detail/B0CF6L6PRT",
+        "warnings": [
+          "brand missing from product detail response",
+          "currency missing from product detail response"
+        ],
+        "issues": []
+      }
+    ],
+    "expected": {
+      "merge_status": "success",
+      "summary": {
+        "total_products": 2,
+        "complete_products": 2,
+        "warning_products": 2,
+        "issue_products": 0
+      },
+      "field_provenance_expectations": {
+        "B00CF2B04Q": {
+          "title": "product_detail",
+          "price": "product_detail",
+          "currency": "discovery",
+          "brand": "product_detail",
+          "media_assets": "product_detail",
+          "promotional_content": "product_detail",
+          "description_bullets": "product_detail"
+        },
+        "B0CF6L6PRT": {
+          "title": "product_detail",
+          "price": "product_detail",
+          "currency": "discovery",
+          "brand": null,
+          "media_assets": "product_detail",
+          "promotional_content": "product_detail",
+          "description_bullets": "product_detail"
+        }
+      },
+      "claim_patterns": ["keto"]
+    }
+  },
+  {
+    "batch_id": "product_intelligence_sanitization_batch_v1",
+    "description": "Drop cross-product narrative content when detail bullets and promo blocks conflict with the product title family.",
+    "collection_report": {
+      "run_id": "data-collection-fixture-002",
+      "generated_at": "2026-04-25T04:00:00Z",
+      "mode": "live",
+      "keyword": "zero sugar candy",
+      "status": "success",
+      "max_products": 1,
+      "discovery": {
+        "snapshot_id": "amazon_api_discovery-fixture-002",
+        "run_status": "success",
+        "total_candidates": 1,
+        "valid_candidates": 1,
+        "invalid_candidates": 0,
+        "warning_records": 0,
+        "artifacts": {}
+      },
+      "selected_candidates": [
+        {
+          "discovery_id": "disc-rank-01-B000CANDY1",
+          "rank": 1,
+          "title": "Zero Sugar Gummies Assorted Fruit Candy Bag",
+          "asin": "B000CANDY1",
+          "product_url": "https://www.amazon.com/dp/B000CANDY1",
+          "price": 6.99,
+          "currency": "USD",
+          "rating": 4.4,
+          "review_count": 1200,
+          "sponsored": false
+        }
+      ],
+      "detail": {
+        "enabled": true,
+        "source": "amazon_api_product",
+        "snapshot_id": "amazon_api_product-fixture-002",
+        "selected_count": 1,
+        "collected_count": 1,
+        "valid_records": 1,
+        "invalid_records": 0,
+        "skipped_reason": null,
+        "artifacts": {}
+      },
+      "artifacts": {}
+    },
+    "discovery_records": [
+      {
+        "discovery_id": "disc-rank-01-B000CANDY1",
+        "snapshot_id": "amazon_api_discovery-fixture-002",
+        "source": "amazon_api_discovery",
+        "provider": "serpapi",
+        "query": "zero sugar candy",
+        "rank": 1,
+        "status": "valid",
+        "title": "Zero Sugar Gummies Assorted Fruit Candy Bag",
+        "product_url": "https://www.amazon.com/dp/B000CANDY1",
+        "asin": "B000CANDY1",
+        "price": 6.99,
+        "currency": "USD",
+        "rating": 4.4,
+        "review_count": 1200,
+        "sponsored": false,
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://discovery/B000CANDY1",
+        "warnings": [],
+        "issues": []
+      }
+    ],
+    "detail_records": [
+      {
+        "detail_id": "detail-B000CANDY1",
+        "snapshot_id": "amazon_api_product-fixture-002",
+        "source": "amazon_api_product",
+        "provider": "serpapi",
+        "asin": "B000CANDY1",
+        "status": "valid",
+        "title": "Zero Sugar Gummies Assorted Fruit Candy Bag",
+        "brand": "Example Candy",
+        "product_url": "https://www.amazon.com/dp/B000CANDY1",
+        "price": 6.99,
+        "currency": "USD",
+        "rating": 4.4,
+        "review_count": 1200,
+        "availability": "In Stock",
+        "media_assets": {
+          "primary_image": "https://example.com/candy-main.jpg",
+          "gallery_images": ["https://example.com/candy-gallery-1.jpg"],
+          "promotional_images": ["https://example.com/candy-promo.jpg"],
+          "videos": []
+        },
+        "promotional_content": [
+          {
+            "position": 1,
+            "title": "Rich chocolate syrup for desserts and coffee",
+            "image": "https://example.com/syrup-promo.jpg"
+          }
+        ],
+        "description_bullets": [
+          "Pour over ice cream and stir into milk for a smooth syrup treat.",
+          "Chocolate syrup bottle with easy-squeeze cap."
+        ],
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://detail/B000CANDY1",
+        "warnings": [],
+        "issues": []
+      }
+    ],
+    "expected": {
+      "merge_status": "success",
+      "summary": {
+        "total_products": 1,
+        "complete_products": 1,
+        "warning_products": 1,
+        "issue_products": 0
+      },
+      "field_provenance_expectations": {
+        "B000CANDY1": {
+          "title": "product_detail",
+          "price": "product_detail",
+          "currency": "product_detail",
+          "brand": "product_detail",
+          "media_assets": "product_detail",
+          "promotional_content": "product_detail",
+          "description_bullets": "product_detail"
+        }
+      },
+      "claim_patterns": [],
+      "sanitization_expectations": {
+        "B000CANDY1": {
+          "description_bullets_empty": true,
+          "promotional_content_empty": true,
+          "warning_contains": [
+            "narrative content dropped",
+            "title family `candy`",
+            "content family `syrup`"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "batch_id": "product_intelligence_amazon_offer_failure_batch_v1",
+    "description": "Do not fall back to discovery price when Amazon product detail reports an unavailable or no-featured-offer primary offer.",
+    "collection_report": {
+      "run_id": "data-collection-fixture-003",
+      "generated_at": "2026-04-25T05:00:00Z",
+      "mode": "live",
+      "keyword": "monk fruit sweetener",
+      "status": "success",
+      "max_products": 1,
+      "discovery": {
+        "snapshot_id": "amazon_api_discovery-fixture-003",
+        "run_status": "success",
+        "total_candidates": 1,
+        "valid_candidates": 1,
+        "invalid_candidates": 0,
+        "warning_records": 0,
+        "artifacts": {}
+      },
+      "selected_candidates": [
+        {
+          "discovery_id": "disc-rank-01-B00UNSAFE1",
+          "rank": 1,
+          "title": "Example Monk Fruit Sweetener Unavailable Listing",
+          "asin": "B00UNSAFE1",
+          "product_url": "https://www.amazon.com/dp/B00UNSAFE1",
+          "price": 11.99,
+          "currency": "USD",
+          "rating": 4.5,
+          "review_count": 555,
+          "sponsored": false
+        }
+      ],
+      "detail": {
+        "enabled": true,
+        "source": "amazon_api_product",
+        "snapshot_id": "amazon_api_product-fixture-003",
+        "selected_count": 1,
+        "collected_count": 1,
+        "valid_records": 1,
+        "invalid_records": 0,
+        "skipped_reason": null,
+        "artifacts": {}
+      },
+      "artifacts": {}
+    },
+    "discovery_records": [
+      {
+        "discovery_id": "disc-rank-01-B00UNSAFE1",
+        "snapshot_id": "amazon_api_discovery-fixture-003",
+        "source": "amazon_api_discovery",
+        "provider": "serpapi",
+        "query": "monk fruit sweetener",
+        "rank": 1,
+        "status": "valid",
+        "title": "Example Monk Fruit Sweetener Unavailable Listing",
+        "product_url": "https://www.amazon.com/dp/B00UNSAFE1",
+        "asin": "B00UNSAFE1",
+        "price": 11.99,
+        "currency": "USD",
+        "rating": 4.5,
+        "review_count": 555,
+        "sponsored": false,
+        "provider_metadata": {},
+        "raw_payload_uri": "fixtures://discovery/B00UNSAFE1",
+        "warnings": [],
+        "issues": []
+      }
+    ],
+    "detail_records": [
+      {
+        "detail_id": "detail-B00UNSAFE1",
+        "snapshot_id": "amazon_api_product-fixture-003",
+        "source": "amazon_api_product",
+        "provider": "serpapi",
+        "asin": "B00UNSAFE1",
+        "status": "valid",
+        "title": "Example Monk Fruit Sweetener Unavailable Listing",
+        "brand": "Example Brand",
+        "product_url": "https://www.amazon.com/dp/B00UNSAFE1",
+        "price": null,
+        "currency": "USD",
+        "rating": 4.5,
+        "review_count": 555,
+        "availability": "Currently unavailable",
+        "media_assets": {
+          "primary_image": "https://example.com/unavailable-main.jpg",
+          "gallery_images": ["https://example.com/unavailable-gallery.jpg"],
+          "promotional_images": ["https://example.com/unavailable-promo.jpg"],
+          "videos": []
+        },
+        "promotional_content": [
+          {
+            "position": 1,
+            "title": "Sweetens baking and beverages",
+            "image": "https://example.com/unavailable-promo.jpg"
+          }
+        ],
+        "description_bullets": ["Monk fruit sweetener for baking"],
+        "provider_metadata": {
+          "offer_state": {
+            "price_fallback_blocked": true,
+            "no_featured_offer_signal": true,
+            "unavailable_signal": true,
+            "primary_offer_safe": false
+          }
+        },
+        "raw_payload_uri": "fixtures://detail/B00UNSAFE1",
+        "warnings": [
+          "price blocked because Amazon detail source did not expose a safe primary offer"
+        ],
+        "issues": []
+      }
+    ],
+    "expected": {
+      "merge_status": "failed",
+      "summary": {
+        "total_products": 1,
+        "complete_products": 0,
+        "warning_products": 1,
+        "issue_products": 1
+      },
+      "field_provenance_expectations": {
+        "B00UNSAFE1": {
+          "title": "product_detail",
+          "price": "product_detail",
+          "currency": "product_detail",
+          "brand": "product_detail",
+          "media_assets": "product_detail",
+          "promotional_content": "product_detail",
+          "description_bullets": "product_detail"
+        }
+      },
+      "claim_patterns": [],
+      "source_failure_expectations": {
+        "B00UNSAFE1": {
+          "price_is_null": true,
+          "availability": "Currently unavailable",
+          "price_provenance_source": "product_detail",
+          "issue_codes": ["missing_price"],
+          "warning_contains": ["price blocked"]
+        }
+      }
+    }
+  }
+]

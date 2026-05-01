@@ -1,0 +1,19 @@
+{
+  "metrics": {
+    "gap_validation_status_accuracy": {
+      "minimum": 1.0
+    },
+    "gap_validation_top_candidate_accuracy": {
+      "minimum": 1.0
+    },
+    "gap_validation_supported_count_accuracy": {
+      "minimum": 1.0
+    },
+    "gap_validation_market_space_accuracy": {
+      "minimum": 1.0
+    },
+    "gap_validation_repeat_run_stability": {
+      "minimum": 1.0
+    }
+  }
+}

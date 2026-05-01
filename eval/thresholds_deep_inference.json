@@ -1,0 +1,19 @@
+{
+  "metrics": {
+    "deep_inference_status_accuracy": {
+      "minimum": 1.0
+    },
+    "deep_inference_brand_profile_accuracy": {
+      "minimum": 1.0
+    },
+    "deep_inference_whitespace_accuracy": {
+      "minimum": 1.0
+    },
+    "deep_inference_caveat_accuracy": {
+      "minimum": 1.0
+    },
+    "deep_inference_repeat_run_stability": {
+      "minimum": 1.0
+    }
+  }
+}

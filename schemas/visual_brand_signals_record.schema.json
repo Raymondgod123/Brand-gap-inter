@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VisualBrandSignalsRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "product_id",
+    "asin",
+    "brand_name",
+    "package_format",
+    "pack_configuration",
+    "visual_density",
+    "promotional_stack",
+    "message_architecture",
+    "visual_cues",
+    "evidence",
+    "warnings"
+  ],
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "brand_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "package_format": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pack_configuration": {
+      "type": "string",
+      "minLength": 1
+    },
+    "visual_density": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promotional_stack": {
+      "type": "string",
+      "minLength": 1
+    },
+    "message_architecture": {
+      "type": "string",
+      "minLength": 1
+    },
+    "visual_cues": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BrandProfileRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "product_id",
+    "asin",
+    "brand_name",
+    "positioning_territory",
+    "secondary_territories",
+    "target_audience",
+    "value_proposition",
+    "tone_of_voice",
+    "pricing_stance",
+    "visual_story",
+    "proof_points",
+    "primary_claims",
+    "evidence_refs",
+    "warnings"
+  ],
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "brand_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "positioning_territory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "secondary_territories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "target_audience": {
+      "type": "string",
+      "minLength": 1
+    },
+    "value_proposition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tone_of_voice": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pricing_stance": {
+      "type": "string",
+      "minLength": 1
+    },
+    "visual_story": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proof_points": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "primary_claims": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

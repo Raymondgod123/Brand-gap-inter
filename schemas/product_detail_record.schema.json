@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProductDetailRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "detail_id",
+    "snapshot_id",
+    "source",
+    "provider",
+    "asin",
+    "status",
+    "title",
+    "brand",
+    "product_url",
+    "price",
+    "currency",
+    "rating",
+    "review_count",
+    "availability",
+    "media_assets",
+    "promotional_content",
+    "description_bullets",
+    "provider_metadata",
+    "raw_payload_uri",
+    "warnings",
+    "issues"
+  ],
+  "properties": {
+    "detail_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["valid", "invalid"]
+    },
+    "title": {
+      "type": ["string", "null"]
+    },
+    "brand": {
+      "type": ["string", "null"]
+    },
+    "product_url": {
+      "type": ["string", "null"]
+    },
+    "price": {
+      "type": ["number", "null"]
+    },
+    "currency": {
+      "type": ["string", "null"]
+    },
+    "rating": {
+      "type": ["number", "null"]
+    },
+    "review_count": {
+      "type": ["integer", "null"]
+    },
+    "availability": {
+      "type": ["string", "null"]
+    },
+    "media_assets": {
+      "type": "object"
+    },
+    "promotional_content": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "description_bullets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "provider_metadata": {
+      "type": "object"
+    },
+    "raw_payload_uri": {
+      "type": "string",
+      "minLength": 1
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "message", "severity"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["warning", "error"]
+          }
+        }
+      }
+    }
+  }
+}

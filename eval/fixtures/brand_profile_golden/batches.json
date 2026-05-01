@@ -1,0 +1,215 @@
+[
+  {
+    "batch_id": "brand_profile_batch_v1",
+    "description": "Build visual brand signals, brand profiles, and a directional market map from product intelligence plus brand positioning records.",
+    "run_id": "data-collection-sugar-fixture-002",
+    "product_intelligence_records": [
+      {
+        "product_id": "amazon:B0D1L1KSMZ",
+        "asin": "B0D1L1KSMZ",
+        "title": "Amazon Saver, White Sugar, 4 Lb",
+        "brand": "Visit the Amazon Saver Store",
+        "product_url": "https://www.amazon.com/dp/B0D1L1KSMZ",
+        "price": 3.07,
+        "currency": null,
+        "rating": 4.8,
+        "review_count": 1543,
+        "availability": "In Stock",
+        "media_assets": {},
+        "promotional_content": [
+          {
+            "position": 1,
+            "title": "Amazon Saver Affordable staples without the frills",
+            "image": "https://example.com/amazon-saver-promo-1.jpg"
+          }
+        ],
+        "description_bullets": [
+          "One 4 pound bag of white granulated sugar",
+          "Gluten free",
+          "Shop smarter with Amazon Saver"
+        ],
+        "discovery_rank": 1,
+        "sponsored": true,
+        "source_snapshots": {
+          "collection_run_id": "data-collection-sugar-fixture-002"
+        },
+        "field_provenance": {},
+        "warnings": [
+          "detail: currency missing"
+        ],
+        "issues": []
+      },
+      {
+        "product_id": "amazon:B0FZXW7LVY",
+        "asin": "B0FZXW7LVY",
+        "title": "Sweetmo Sugar Packets Variety Pack for Coffee, Tea, Office Breakrooms, Home & Airbnb",
+        "brand": "Brand: Sweetmo",
+        "product_url": "https://www.amazon.com/dp/B0FZXW7LVY",
+        "price": 22.49,
+        "currency": null,
+        "rating": 4.8,
+        "review_count": 60,
+        "availability": "In Stock",
+        "media_assets": {},
+        "promotional_content": [],
+        "description_bullets": [
+          "Convenient 300-count value pack for home, office, coffee bar, or breakroom.",
+          "Wooden stirrers included.",
+          "Perfect for coffee and tea stations."
+        ],
+        "discovery_rank": 2,
+        "sponsored": true,
+        "source_snapshots": {
+          "collection_run_id": "data-collection-sugar-fixture-002"
+        },
+        "field_provenance": {},
+        "warnings": [
+          "detail: currency missing"
+        ],
+        "issues": []
+      },
+      {
+        "product_id": "amazon:B09RPPBG15",
+        "asin": "B09RPPBG15",
+        "title": "Domino Granulated Sugar, 20 oz Canister, Pack of 3",
+        "brand": "Visit the Domino Store",
+        "product_url": "https://www.amazon.com/dp/B09RPPBG15",
+        "price": 22.99,
+        "currency": null,
+        "rating": 4.5,
+        "review_count": 917,
+        "availability": "In Stock",
+        "media_assets": {},
+        "promotional_content": [],
+        "description_bullets": [
+          "Premium granulated pure cane sugar made with non-GMO pure cane sugar.",
+          "Convenient and easy-to-use canister keeps sugar fresh.",
+          "Pantry baking essential for homemade recipes."
+        ],
+        "discovery_rank": 3,
+        "sponsored": true,
+        "source_snapshots": {
+          "collection_run_id": "data-collection-sugar-fixture-002"
+        },
+        "field_provenance": {},
+        "warnings": [
+          "detail: currency missing"
+        ],
+        "issues": []
+      }
+    ],
+    "brand_positioning_records": [
+      {
+        "product_id": "amazon:B0D1L1KSMZ",
+        "asin": "B0D1L1KSMZ",
+        "brand_name": "Amazon Saver",
+        "title": "Amazon Saver, White Sugar, 4 Lb",
+        "positioning_archetype": "value_staple",
+        "price_tier": "budget",
+        "value_signal": "explicit",
+        "health_signal": "moderate",
+        "convenience_signal": "light",
+        "visual_strategy": "packaging_promo_video",
+        "claim_signals": ["saver", "affordable", "gluten free"],
+        "usage_contexts": ["pantry"],
+        "packaging_signal_summary": {
+          "primary_image_present": true,
+          "gallery_image_count": 6,
+          "promotional_image_count": 2,
+          "video_count": 4,
+          "description_bullet_count": 3,
+          "promotional_block_count": 1
+        },
+        "evidence": ["Amazon Saver, White Sugar, 4 Lb"],
+        "warnings": ["currency missing from product intelligence record"]
+      },
+      {
+        "product_id": "amazon:B0FZXW7LVY",
+        "asin": "B0FZXW7LVY",
+        "brand_name": "Sweetmo",
+        "title": "Sweetmo Sugar Packets Variety Pack for Coffee, Tea, Office Breakrooms, Home & Airbnb",
+        "positioning_archetype": "convenience_bundle",
+        "price_tier": "mid",
+        "value_signal": "moderate",
+        "health_signal": "light",
+        "convenience_signal": "explicit",
+        "visual_strategy": "packaging_plus_video",
+        "claim_signals": ["value", "packets", "variety pack", "office", "home"],
+        "usage_contexts": ["coffee", "tea", "office", "home"],
+        "packaging_signal_summary": {
+          "primary_image_present": true,
+          "gallery_image_count": 8,
+          "promotional_image_count": 0,
+          "video_count": 2,
+          "description_bullet_count": 3,
+          "promotional_block_count": 0
+        },
+        "evidence": ["Sweetmo Sugar Packets Variety Pack"],
+        "warnings": [
+          "currency missing from product intelligence record",
+          "promotional content missing for positioning analysis"
+        ]
+      },
+      {
+        "product_id": "amazon:B09RPPBG15",
+        "asin": "B09RPPBG15",
+        "brand_name": "Domino",
+        "title": "Domino Granulated Sugar, 20 oz Canister, Pack of 3",
+        "positioning_archetype": "pantry_staple",
+        "price_tier": "premium",
+        "value_signal": "light",
+        "health_signal": "moderate",
+        "convenience_signal": "explicit",
+        "visual_strategy": "packaging_gallery_only",
+        "claim_signals": ["non gmo", "canister", "pack of"],
+        "usage_contexts": ["baking", "coffee", "tea", "pantry"],
+        "packaging_signal_summary": {
+          "primary_image_present": true,
+          "gallery_image_count": 6,
+          "promotional_image_count": 0,
+          "video_count": 0,
+          "description_bullet_count": 3,
+          "promotional_block_count": 0
+        },
+        "evidence": ["Domino Granulated Sugar, 20 oz Canister, Pack of 3"],
+        "warnings": [
+          "currency missing from product intelligence record",
+          "promotional content missing for positioning analysis"
+        ]
+      }
+    ],
+    "expected": {
+      "status": "partial_success",
+      "signals": {
+        "B0D1L1KSMZ": {
+          "package_format": "bag",
+          "promotional_stack": "full_story_stack",
+          "message_architecture": "value_led"
+        },
+        "B0FZXW7LVY": {
+          "package_format": "packets",
+          "promotional_stack": "packaging_plus_video",
+          "message_architecture": "convenience_led"
+        },
+        "B09RPPBG15": {
+          "package_format": "canister",
+          "promotional_stack": "packaging_only",
+          "message_architecture": "pantry_classic"
+        }
+      },
+      "profiles": {
+        "B0D1L1KSMZ": "value_pantry_basics",
+        "B0FZXW7LVY": "convenience_beverage_station",
+        "B09RPPBG15": "premium_pantry_basics"
+      },
+      "pricing_stances": {
+        "B0D1L1KSMZ": "budget_anchor",
+        "B0FZXW7LVY": "mid_market",
+        "B09RPPBG15": "premium_pantry"
+      },
+      "underrepresented_fragments": [
+        "health-forward sugar alternative"
+      ]
+    }
+  }
+]

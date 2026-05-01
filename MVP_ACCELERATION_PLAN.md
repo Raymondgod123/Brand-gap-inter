@@ -1,6 +1,6 @@
 # Brand Gap Inference MVP Acceleration Plan
 
-Last updated: 2026-04-22
+Last updated: 2026-04-23
 
 ## PM decision
 
@@ -15,6 +15,11 @@ The right move is:
 3. Define a narrow MVP
 4. Build the shortest usable end-to-end product path
 5. Reevaluate broken pieces after the MVP is working
+
+Status update:
+
+This plan has now largely been executed.
+The narrow MVP path exists, the current version has been committed and pushed, and the main PM focus has shifted to live demo reliability.
 
 In plain English:
 
@@ -37,12 +42,19 @@ What already exists:
 - taxonomy runtime
 - artifact outputs
 - tests for ingestion, normalization, taxonomy, and eval flow
+- MVP CLI workflow
+- failure-path reporting for MVP runs
 
 What this means:
 
 - We now have enough to create a first end-to-end MVP flow.
 - The current system is not fully trustworthy yet.
 - But it is strong enough to support a focused MVP if we keep scope narrow.
+
+Updated PM reading:
+
+- the MVP flow is now real, not just planned
+- the main current product risk is live Amazon source behavior, especially safe price extraction on dynamic or out-of-stock pages
 
 PM view:
 
@@ -73,6 +85,11 @@ PM note:
 
 Do not treat this as a release-quality commit.
 Treat it as a product checkpoint so the team can move faster from a known base.
+
+Status:
+
+Done.
+The update report says the work is committed and pushed to `main`.
 
 ### 2. Stop expanding scope horizontally
 
@@ -218,6 +235,11 @@ Definition of done:
 
 - a teammate can run one workflow and get the MVP result without manual digging across many files
 
+Status:
+
+Done in first-pass MVP form.
+The CLI path `python -m brand_gap_inference.mvp_run --url <amazon_url>` now writes a per-run artifacts folder and produces readable output even on failure.
+
 ### Phase C: Add a very simple opportunity layer
 
 Goal:
@@ -240,6 +262,11 @@ Definition of done:
 
 - the system produces a simple, readable hypothesis with explicit caveats
 
+Status:
+
+Done in narrow MVP form.
+The sprint report confirms the pipeline now reaches one gap hypothesis report.
+
 ### Phase D: Thin presentation layer
 
 Goal:
@@ -258,6 +285,10 @@ PM guidance:
 Do not build a polished product shell yet.
 Just make the output easy to understand.
 
+Status:
+
+Done in a lightweight way through artifact outputs and `mvp_report.md`.
+
 ### Phase E: Reevaluate broken pieces after MVP
 
 Goal:
@@ -274,19 +305,37 @@ What to review after MVP works:
 
 This is the right time to deepen quality work.
 
+Status:
+
+This is the current phase now.
+The main exposed weak point is safe live Amazon primary-price extraction.
+
 ## Updated engineering priorities
 
 ### Immediate priority
 
 Ship a narrow end-to-end MVP.
 
+Status:
+
+Completed.
+
 ### Secondary priority
 
 Keep only the minimum trust rails needed to avoid fake confidence.
 
+Status:
+
+Completed and preserved.
+The update confirms raw snapshots, schema validation, eval gates, and explicit warnings/low-confidence reasons remain in place.
+
 ### Deferred priority
 
 Broader hardening, broader coverage, and platform depth after MVP feedback.
+
+Status:
+
+This is the active work bucket now, starting with live-source hardening instead of broad platform expansion.
 
 ## Suggested backlog for the MVP push
 
@@ -299,17 +348,33 @@ Broader hardening, broader coverage, and platform depth after MVP feedback.
 - simple evidence-backed gap hypothesis
 - confidence/warning section
 
+Status:
+
+Completed.
+
 ### Should have
 
 - one markdown summary artifact
 - one example demo run checked into artifacts or docs
 - basic regression checks for the MVP flow
 
+Status:
+
+Mostly completed.
+The markdown report artifact exists and regression checks are reported green.
+The remaining practical need is a more reliable live demo path.
+
 ### Nice to have
 
 - richer provenance
 - stronger taxonomy eval thresholds
 - improved fixture breadth
+
+Status:
+
+Partly completed.
+Richer provenance and low-confidence reasons are present.
+Fixture breadth and hardening still need more work.
 
 Important PM note:
 
@@ -334,6 +399,23 @@ The MVP is done when:
 - the output includes evidence and caveats
 - the workflow is easy enough to run for a demo
 
+Current PM judgment:
+
+The MVP is done in first-pass form.
+It is demoable, but the live demo path is not yet fully dependable because some real Amazon pages fail safe on price extraction.
+
+## Next PM focus
+
+The next focus is not to widen the product.
+The next focus is to make the current MVP path more dependable.
+
+Top near-term tasks:
+
+- improve safe primary-price extraction for live Amazon pages
+- avoid regressing back into wrong-widget prices
+- keep the failure-path reporting clean
+- maintain one or more reliable demo URLs while hardening continues
+
 ## Plain English summary
 
 The project is ready to stop behaving like a research-only build.
@@ -346,4 +428,5 @@ We should:
 - learn from real output
 - then come back and harden the weak parts
 
-That is the fastest responsible way forward.
+That is still the right strategy.
+The team has now reached the "learn from real output and harden the weak parts" stage.

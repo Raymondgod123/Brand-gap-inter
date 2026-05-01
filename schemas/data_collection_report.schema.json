@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DataCollectionReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "generated_at",
+    "mode",
+    "keyword",
+    "status",
+    "max_products",
+    "discovery",
+    "selected_candidates",
+    "detail",
+    "artifacts"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["live", "replay"]
+    },
+    "keyword": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial_success", "failed"]
+    },
+    "max_products": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "discovery": {
+      "type": "object"
+    },
+    "selection": {
+      "type": "object"
+    },
+    "selected_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "detail": {
+      "type": "object"
+    },
+    "artifacts": {
+      "type": "object"
+    }
+  }
+}
